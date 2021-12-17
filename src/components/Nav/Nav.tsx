@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { AiFillFire, AiFillHeart, AiFillGithub } from 'react-icons/ai'
+import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
@@ -19,6 +19,11 @@ export type NavProps = {
 }
 
 const navigation:navigationType = [
+  {
+    name: 'Home',
+    href: '/',
+    icon: AiFillHome
+  },
   {
     name: 'Trending',
     href: '/trending',
