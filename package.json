@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "license": "AGPL-3.0-or-later",
   "description": "An open-source alternative frontend for YouTube which is efficient by design.",
-  "homepage": "https://github.com/silkkycloud/project",
+  "homepage": "https://github.com/silkkycloud/piped-robot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/silkkycloud/project.git"
+    "url": "https://github.com/silkkycloud/piped-robot.git"
   },
   "author": {
     "name": "Oscar Melton",
@@ -14,7 +14,7 @@
     "url": "https://www.silkky.cloud"
   },
   "bugs": {
-    "url": "https://github.com/silkkycloud/project/issues"
+    "url": "https://github.com/silkkycloud/piped-robot/issues"
   },
   "scripts": {
     "dev": "next dev",

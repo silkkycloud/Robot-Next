@@ -44,7 +44,7 @@ const navigation:navigationType = [
 const secondaryNavigation:navigationType = [
   {
     name: 'GitHub',
-    href: 'https://github.com/silkkycloud',
+    href: 'https://github.com/silkkycloud/piped-robot',
     icon: AiFillGithub,
     external: true
   },
