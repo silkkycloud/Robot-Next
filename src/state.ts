@@ -1,13 +1,13 @@
-import { proxy, subscribe } from 'valtio';
+import { proxy, subscribe } from 'valtio'
 
 const getInitialState = () => {
   try {
-    const state = JSON.parse(<string>localStorage.getItem('pipedState'));
-    if (state) return state;
+    const state = JSON.parse(<string>localStorage.getItem('pipedState'))
+    if (state) return state
   } catch (e) {}
 
   return {
-    apiUrl: "https://api.piped.silkky.cloud",
+    apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
     settings: {
       sponsorBlock: true,
@@ -18,7 +18,7 @@ const getInitialState = () => {
       skipInteraction: true,
       skipSelfPromo: true,
       skipMusicOffTopic: true,
-      selectedTheme: "light",
+      selectedTheme: 'light',
       autoPlayVideo: true,
       listen: false,
       resolutions: [144, 240, 360, 480, 720, 1080, 1440, 2160, 4320],
@@ -27,17 +27,17 @@ const getInitialState = () => {
       showComments: true,
       minimizeDescription: false,
       watchHistory: false,
-      enabledCodecs: ["av1", "vp9", "avc"],
+      enabledCodecs: ['av1', 'vp9', 'avc'],
       disableLBRY: false,
-      proxyLBRY: false,
+      proxyLBRY: false
     }
-  };
-};
+  }
+}
 
-export const state = proxy(getInitialState());
+export const state = proxy(getInitialState())
 
 subscribe(state, () => {
-  localStorage.setItem('pipedState', JSON.stringify(state));
-});
+  localStorage.setItem('pipedState', JSON.stringify(state))
+})
 
 export default state
