@@ -1,69 +1,28 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
+import { useSnapshot } from 'valtio'
+import state from '../../state'
 
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
+
+import NavLink from './NavLink'
+import Search from '../Search/Search'
 
 import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
 
-import { navigationType } from './NavLinks'
-
-import NavLinks from './NavLinks'
-import Search from '../Search/Search'
-
 export type NavProps = {
   children?: React.ReactNode
 }
 
-const navigation:navigationType = [
-  {
-    name: 'Home',
-    href: '/',
-    icon: AiFillHome
-  },
-  {
-    name: 'Trending',
-    href: '/trending',
-    icon: AiFillFire
-  },
-  {
-    name: 'Feed',
-    href: '/feed',
-    icon: FaRss
-  },
-  {
-    name: 'Subscriptions',
-    href: '/subscriptions',
-    icon: AiFillHeart
-  },
-  {
-    name: 'Settings',
-    href: '/settings',
-    icon: IoIosSettings
-  }
-]
-
-const secondaryNavigation:navigationType = [
-  {
-    name: 'GitHub',
-    href: 'https://github.com/silkkycloud/piped-robot',
-    icon: AiFillGithub,
-    external: true
-  },
-  {
-    name: 'Donate',
-    href: 'https://www.silkky.cloud/contribute',
-    icon: AiFillHeart,
-    external: true
-  }
-]
-
 const Nav = ({children}: NavProps) => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const snap = useSnapshot(state)
 
   return (
     <>
@@ -124,17 +83,51 @@ const Nav = ({children}: NavProps) => {
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
-                    <NavLinks
-                      navigation={navigation}
+                    {snap.authenticated ? <NavLink
+                      name="Home"
+                      href="/"
+                      Icon={AiFillHome}
+                      onClick={() => setSidebarOpen(false)}
+                    /> : null}
+                    <NavLink
+                      name="Trending"
+                      href="/trending"
+                      Icon={AiFillFire}
+                      onClick={() => setSidebarOpen(false)}
+                    />
+                    {snap.authenticated ? <NavLink
+                      name="Feed"
+                      href="/feed"
+                      Icon={FaRss}
+                      onClick={() => setSidebarOpen(false)}
+                    /> : null}
+                    {snap.authenticated ? <NavLink
+                      name="Subscriptions"
+                      href="/subscriptions"
+                      Icon={AiFillHeart}
+                      onClick={() => setSidebarOpen(false)}
+                    /> : null}
+                    <NavLink
+                      name="Settings"
+                      href="/settings"
+                      Icon={IoIosSettings}
                       onClick={() => setSidebarOpen(false)}
                     />
                   </nav>
                 </div>
                 <div className="mt-5 flex flex-col">
                   <nav className="px-2 space-y-1">
-                    <NavLinks
-                      navigation={secondaryNavigation}
-                      onClick={() => setSidebarOpen(false)}
+                    <NavLink
+                      name="GitHub"
+                      href="https://github.com/silkkycloud/piped-robot"
+                      Icon={AiFillGithub}
+                      external={true}
+                    />
+                    <NavLink
+                      name="Donate"
+                      href="https://github.com/silkkycloud/piped-robot"
+                      Icon={AiFillHeart}
+                      external={true}
                     />
                   </nav>
                 </div>
@@ -160,13 +153,46 @@ const Nav = ({children}: NavProps) => {
             </div>
             <div className="mt-5 flex-grow flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                <NavLinks navigation={navigation} />
+                {snap.authenticated ? <NavLink
+                  name="Home"
+                  href="/"
+                  Icon={AiFillHome}
+                /> : null}
+                <NavLink
+                  name="Trending"
+                  href="/trending"
+                  Icon={AiFillFire}
+                />
+                {snap.authenticated ? <NavLink
+                  name="Feed"
+                  href="/feed"
+                  Icon={FaRss}
+                /> : null}
+                {snap.authenticated ? <NavLink
+                  name="Subscriptions"
+                  href="/subscriptions"
+                  Icon={AiFillHeart}
+                /> : null}
+                <NavLink
+                  name="Settings"
+                  href="/settings"
+                  Icon={IoIosSettings}
+                />
               </nav>
             </div>
             <div className="mt-5 flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                <NavLinks
-                  navigation={secondaryNavigation}
+                <NavLink
+                  name="GitHub"
+                  href="https://github.com/silkkycloud/piped-robot"
+                  Icon={AiFillGithub}
+                  external={true}
+                />
+                <NavLink
+                  name="Donate"
+                  href="https://github.com/silkkycloud/piped-robot"
+                  Icon={AiFillHeart}
+                  external={true}
                 />
               </nav>
             </div>
