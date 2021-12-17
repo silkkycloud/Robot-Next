@@ -1,17 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
-
-import config from '../../config'
+import { useSnapshot } from 'valtio'
+import state from '../../state'
 
 import { AiOutlineSearch } from 'react-icons/ai'
 
-export const fetchSuggestions = async (query: string) => {
-  const res = await fetch(config.apiUrl + "/suggestions?query=" + query)
+export const fetchSuggestions = async (apiUrl:string, query: string) => {
+  const res = await fetch(apiUrl + "/suggestions?query=" + query)
 
   return await res.json()
 }
 
 const SearchBox = () => {
+
+  const snap = useSnapshot(state)
 
   const [suggestionsOpen, setSuggestionsOpen] = useState(false)
 
