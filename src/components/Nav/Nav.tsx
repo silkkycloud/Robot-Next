@@ -172,7 +172,7 @@ const Nav = ({children}: NavProps) => {
                   <label htmlFor="search-field" className="sr-only">
                     Search
                   </label>
-                  <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+                  <div className="relative w-full text-gray-400 focus-within:text-red-600">
                     <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
                       <AiOutlineSearch className="h-5 w-5" aria-hidden="true" />
                     </div>

@@ -32,6 +32,7 @@ const NavLinks = ({navigation}:NavLinksProps) => {
             rel="noreferrer"
             target="_blank"
           >
+            {/* @ts-ignore */}
             <item.icon
               className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
               aria-hidden="true"
@@ -47,6 +48,7 @@ const NavLinks = ({navigation}:NavLinksProps) => {
                 'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
               )}
             >
+              {/* @ts-ignore */}
               <item.icon
                 className={classNames(
                   router.pathname === item.href ? 'text-red-600' : 'text-gray-400 group-hover:text-gray-500',
