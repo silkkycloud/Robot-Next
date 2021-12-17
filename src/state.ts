@@ -8,7 +8,7 @@ const getInitialState = () => {
 
   return {
     apiUrl: "https://api.piped.silkky.cloud",
-    authToken: null,
+    authenticated: false,
     settings: {
       sponsorBlock: true,
       skipSponsor: true,
