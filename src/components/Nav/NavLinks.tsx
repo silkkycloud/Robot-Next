@@ -11,13 +11,14 @@ export type navigationType = {
 
 export type NavLinksProps = {
   navigation: navigationType
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-const NavLinks = ({navigation}:NavLinksProps) => {
+const NavLinks = ({navigation, onClick}:NavLinksProps) => {
 
   const router = useRouter()
 
@@ -47,6 +48,7 @@ const NavLinks = ({navigation}:NavLinksProps) => {
                 router.pathname === item.href ? 'bg-gray-100 text-red-600' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                 'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
               )}
+              onClick={onClick}
             >
               {/* @ts-ignore */}
               <item.icon

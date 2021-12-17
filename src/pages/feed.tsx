@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo'
 const Feed = () => {
   return (
     <>
-      <NextSeo title="Piped | Feed" />
+      <NextSeo title="Feed - Piped" />
     </>
   )
 }

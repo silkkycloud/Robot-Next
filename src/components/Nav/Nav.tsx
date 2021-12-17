@@ -4,13 +4,15 @@ import { Fragment, useState } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { AiFillFire, AiFillHeart, AiOutlineSearch, AiFillGithub } from 'react-icons/ai'
+import { AiFillFire, AiFillHeart, AiFillGithub } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
 
-import NavLinks from './NavLinks'
 import { navigationType } from './NavLinks'
+
+import NavLinks from './NavLinks'
+import SearchBox from '../SearchBox/SearchBox'
 
 export type NavProps = {
   children?: React.ReactNode
@@ -115,9 +117,20 @@ const Nav = ({children}: NavProps) => {
                     />
                   </Link>
                 </div>
-                <div className="mt-5 flex-1 h-0 overflow-y-auto">
+                <div className="mt-5 flex-grow h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
-                    <NavLinks navigation={navigation} />
+                    <NavLinks
+                      navigation={navigation}
+                      onClick={() => setSidebarOpen(false)}
+                    />
+                  </nav>
+                </div>
+                <div className="mt-5 flex flex-col">
+                  <nav className="px-2 space-y-1">
+                    <NavLinks
+                      navigation={secondaryNavigation}
+                      onClick={() => setSidebarOpen(false)}
+                    />
                   </nav>
                 </div>
               </div>
@@ -168,23 +181,7 @@ const Nav = ({children}: NavProps) => {
             </button>
             <div className="flex-1 px-4 flex justify-between">
               <div className="flex-1 flex">
-                <form className="w-full flex md:ml-0" action="#" method="GET">
-                  <label htmlFor="search-field" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full text-gray-400 focus-within:text-red-600">
-                    <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                      <AiOutlineSearch className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <input
-                      id="search-field"
-                      className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                      placeholder="Search"
-                      type="search"
-                      name="search"
-                    />
-                  </div>
-                </form>
+                <SearchBox />
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo'
 const Settings = () => {
   return (
     <>
-      <NextSeo title="Piped | Settings" />
+      <NextSeo title="Settings - Piped" />
     </>
   )
 }
