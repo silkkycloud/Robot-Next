@@ -12,7 +12,7 @@ import { IoIosSettings } from 'react-icons/io'
 import { navigationType } from './NavLinks'
 
 import NavLinks from './NavLinks'
-import SearchBox from '../SearchBox/SearchBox'
+import Search from '../Search/Search'
 
 export type NavProps = {
   children?: React.ReactNode
@@ -186,7 +186,7 @@ const Nav = ({children}: NavProps) => {
             </button>
             <div className="flex-1 px-4 flex justify-between">
               <div className="flex-1 flex">
-                <SearchBox />
+                <Search />
               </div>
             </div>
           </div>
