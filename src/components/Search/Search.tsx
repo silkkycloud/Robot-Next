@@ -1,11 +1,12 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { AiOutlineSearch } from 'react-icons/ai'
+import useFetchSuggestions from '../../hooks/useFetchSuggestions'
 
 const Search = () => {
-
   const [query, setQuery] = useState('')
+
+  const data = useFetchSuggestions(query)
 
   return (
     <>
@@ -22,7 +23,13 @@ const Search = () => {
             type="text"
             name="search"
             role="search"
+            onChange={(q) => setQuery(q.target.value)}
           />
+          {data.map((item) => (
+            <p key={item}>
+              {item}
+            </p>
+          ))}
         </div>
       </div>
     </>
