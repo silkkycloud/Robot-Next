@@ -5,22 +5,20 @@ import state from '../../state'
 
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
-
 import NavLink from './NavLink'
-import Search from '../Search/Search'
-
-import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome } from 'react-icons/ai'
+import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome, AiOutlineSearch } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
+import Search from '../Search/Search'
 
 export type NavProps = {
   children?: React.ReactNode
 }
 
 const Nav = ({children}: NavProps) => {
-
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const snap = useSnapshot(state)
 
@@ -73,12 +71,16 @@ const Nav = ({children}: NavProps) => {
                 </Transition.Child>
                 <div className="flex-shrink-0 flex items-center px-4">
                   <Link href="/" passHref>
-                    <img
-                      className="h-10 w-auto cursor-pointer"
-                      src="/logo.svg"
-                      alt="Piped"
-                      onClick={() => setSidebarOpen(false)}
-                    />
+                    <a className="cursor-pointer group flex items-center">
+                      <img
+                        className="mr-3 flex-shrink-0 h-10 w-auto"
+                        src="/logo.svg"
+                        alt="Piped"
+                      />
+                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        v{snap.version}
+                      </span>
+                    </a>
                   </Link>
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
@@ -144,11 +146,16 @@ const Nav = ({children}: NavProps) => {
           <div className="flex flex-col h-screen flex-grow border-r border-gray-200 pt-5 bg-white overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
               <Link href="/" passHref>
-                <img
-                  className="h-10 w-auto cursor-pointer"
-                  src="/logo.svg"
-                  alt="Piped"
-                />
+                <a className="cursor-pointer group flex items-center">
+                  <img
+                    className="mr-3 flex-shrink-0 h-10 w-auto"
+                    src="/logo.svg"
+                    alt="Piped"
+                  />
+                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    v{snap.version}
+                  </span>
+                </a>
               </Link>
             </div>
             <div className="mt-5 flex-grow flex flex-col">
@@ -212,7 +219,22 @@ const Nav = ({children}: NavProps) => {
             </button>
             <div className="flex-1 px-4 flex justify-between">
               <div className="flex-1 flex">
-                <Search />
+                {/* Search Icon */}
+                <div className="w-full flex md:ml-0">
+                  <div className="relative w-full">
+                    <div className="absolute inset-y-0 left-0 flex items-center">
+                      <button
+                        type="button"
+                        className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        onClick={() => setSearchOpen(true)}
+                      >
+                        <span className="sr-only">Open search</span>
+                        <AiOutlineSearch className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -226,6 +248,10 @@ const Nav = ({children}: NavProps) => {
             </main>
           ) : null}
         </div>
+
+        {/* Search */}
+        <Search open={searchOpen} setOpen={setSearchOpen} />
+
       </section>
     </>
   )

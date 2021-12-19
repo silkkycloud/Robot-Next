@@ -7,10 +7,6 @@ import '@fontsource/inter'
 import Nav from '../components/Nav/Nav'
 import { DefaultSeo } from 'next-seo'
 
-export const fetchJson = async () => {
-
-}
-
 const App = ({ Component, pageProps }: AppProps) => (
   <>
     <DefaultSeo

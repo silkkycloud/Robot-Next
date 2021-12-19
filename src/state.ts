@@ -7,6 +7,7 @@ const getInitialState = () => {
   } catch (e) {}
 
   return {
+    version: '0.1.0',
     apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
     settings: {
