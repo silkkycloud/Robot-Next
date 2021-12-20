@@ -1,5 +1,5 @@
 import React, { Dispatch, Fragment, SetStateAction, useState } from 'react'
-import useFetchSuggestions from '../../hooks/useFetchSuggestions'
+import useFetchApi from '../../hooks/useFetchApi'
 
 import { Transition } from '@headlessui/react'
 
@@ -12,7 +12,7 @@ export type SearchSuggestionsProps = {
 
 const SearchSuggestions = ({open, setOpen, query, setQuery}: SearchSuggestionsProps) => {
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
-  const suggestions = useFetchSuggestions(query)
+  const suggestions = useFetchApi("/suggestions?query=" + query)
 
   return (
     <>
