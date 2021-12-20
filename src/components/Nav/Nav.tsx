@@ -19,7 +19,7 @@ export type NavProps = {
   children?: React.ReactNode
 }
 
-const Nav = ({children}: NavProps) => {
+const Nav = ({children}: NavProps): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 

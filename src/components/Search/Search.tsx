@@ -8,9 +8,8 @@ export type SearchProps = {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Search = ({open, setOpen}: SearchProps) => {
+const Search = ({open, setOpen}: SearchProps): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [openSearchSuggestions, setOpenSearchSuggestions] = useState(false)
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -64,16 +63,12 @@ const Search = ({open, setOpen}: SearchProps) => {
                     id="search"
                     className="shadow-sm focus:ring-red-600 focus:border-red-600 block w-full sm:text-sm border-gray-300 rounded-md"
                     onChange={(query) => setSearchQuery(query.target.value)}
-                    onFocus={() => setOpenSearchSuggestions(true)}
-                    onBlur={() => setOpenSearchSuggestions(false)}
                   />
                 </div>
               </div>
               <div className="px-2">
                 {/* Search Suggestions */}
                 <SearchSuggestions
-                  open={openSearchSuggestions}
-                  setOpen={setOpenSearchSuggestions}
                   query={searchQuery}
                   setQuery={setSearchQuery}
                 />

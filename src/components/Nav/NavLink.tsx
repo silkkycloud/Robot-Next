@@ -16,7 +16,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-const NavLink = ({name, href, Icon, external, onClick}: NavLinksProps) => {
+const NavLink = ({name, href, Icon, external, onClick}: NavLinksProps): JSX.Element => {
 
   const router = useRouter()
 
