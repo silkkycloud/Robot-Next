@@ -6,11 +6,11 @@ import state from '../../state'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 import NavLink from './NavLink'
+import Search from '../Search/Search'
 import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome, AiOutlineSearch } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
-import Search from '../Search/Search'
 
 export type NavProps = {
   children?: React.ReactNode
@@ -76,6 +76,7 @@ const Nav = ({children}: NavProps) => {
                         className="mr-3 flex-shrink-0 h-10 w-auto"
                         src="/logo.svg"
                         alt="Piped"
+                        onClick={() => setSidebarOpen(false)}
                       />
                       <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
                         v{snap.version}
