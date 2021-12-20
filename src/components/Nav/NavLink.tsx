@@ -17,7 +17,6 @@ function classNames(...classes: string[]) {
 }
 
 const NavLink = ({name, href, Icon, external, onClick}: NavLinksProps): JSX.Element => {
-
   const router = useRouter()
 
   return (

@@ -65,13 +65,13 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
                     onChange={(query) => setSearchQuery(query.target.value)}
                   />
                 </div>
-              </div>
-              <div className="px-2">
-                {/* Search Suggestions */}
-                <SearchSuggestions
-                  query={searchQuery}
-                  setQuery={setSearchQuery}
-                />
+                <div className="px-2">
+                  {/* Search Suggestions */}
+                  <SearchSuggestions
+                    query={searchQuery}
+                    setQuery={setSearchQuery}
+                  />
+                </div>
               </div>
             </div>
           </Transition.Child>
