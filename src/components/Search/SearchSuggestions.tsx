@@ -20,12 +20,12 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
       {suggestions.map((suggestions: string, index: number) =>
         <li
           key={index.toString()}
-          className="cursor-pointer px-3 py-3 sm:px-2 sm:py-2 hover:bg-gray-50 hover:text-gray-900"
+          className="cursor-pointer px-3 py-3 sm:px-2 sm:py-2 hover:bg-gray-50 dark:hover:bg-neutral-900"
           onClick={() => handleSelectSuggestion(index)}
         >
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-neutral-400">
                 {suggestions}
               </p>
             </div>
@@ -36,7 +36,7 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
   )
 
   return (
-    <div className="bg-white shadow rounded-md">
+    <div className="bg-white dark:bg-neutral-800 shadow rounded-md">
       <div className="overflow-auto w-auto max-h-40 sm:h-auto">
         {suggestionsList}
       </div>

@@ -44,10 +44,10 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-visible shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full sm:p-4">
+            <div className="inline-block align-bottom bg-white dark:bg-neutral-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-visible shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full sm:p-4">
               <div>
                 <div className="mx-auto text-center">
-                  <Dialog.Title as="h2" className="text-xl leading-5 font-medium text-gray-900">
+                  <Dialog.Title as="h2" className="text-xl leading-5 font-medium text-gray-900 dark:text-white">
                     Search
                   </Dialog.Title>
                 </div>
@@ -61,7 +61,7 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
                     type="text"
                     name="search"
                     id="search"
-                    className="shadow-sm focus:ring-red-600 focus:border-red-600 block w-full sm:text-sm border-gray-300 rounded-md"
+                    className="shadow-sm dark:shadow-md bg-white dark:bg-neutral-800 focus:ring-red-600 focus:border-red-600 block w-full sm:text-sm border-gray-300 dark:border-neutral-900 rounded-md"
                     onChange={(query) => setSearchQuery(query.target.value)}
                   />
                 </div>
