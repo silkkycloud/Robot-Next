@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import Link from 'next/link'
-import { IconType } from 'react-icons'
+import type { IconType } from 'react-icons'
 
 export type NavLinksProps = {
   name: string,

@@ -24,7 +24,7 @@ const Nav = ({children}: NavProps) => {
 
   const snap = useSnapshot(state)
 
-  const {theme, setTheme} = useTheme()
+  const {forcedTheme} = useTheme()
 
   return (
     <>
@@ -245,13 +245,13 @@ const Nav = ({children}: NavProps) => {
                     <button
                       type="button"
                       className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
-                      onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
+                      onClick={() => state.settings.selectedTheme = state.settings.selectedTheme == 'dark' ? 'light' : 'dark'}
                     >
                       <span className="sr-only">Switch theme</span>
-                      {theme == 'dark' ? (
-                        <MdDarkMode className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white" aria-hidden="true" />
+                      {forcedTheme == 'dark' ? (
+                        <MdLightMode className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white" aria-hidden="true" />
                       ) : (
-                        <MdLightMode className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        <MdDarkMode className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                       )}
                       Theme
                     </button>
