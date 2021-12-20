@@ -32,7 +32,7 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
       {suggestions.map((suggestions: string, index: number) =>
         <li
           key={index.toString()}
-          className={`cursor-pointer px-3 py-3 sm:px-2 sm:py-2 ${index === selectedSuggestion ? 'bg-gray-500 dark:bg-neutral-900' : null}`}
+          className={`cursor-pointer px-3 py-3 sm:px-2 sm:py-2 ${index === selectedSuggestion ? 'bg-gray-50 dark:bg-neutral-900' : null}`}
           onClick={() => setSelectedSuggestion(index)}
           onMouseEnter={() => setSelectedSuggestion(index)}
           onMouseLeave={() => setSelectedSuggestion(-1)}
@@ -51,7 +51,7 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
 
   return (
     <div className="bg-white dark:bg-neutral-800 shadow rounded-md">
-      <div className="overflow-auto w-auto sm:h-auto">
+      <div className="overflow-auto w-auto h-auto">
         {suggestionsList}
       </div>
     </div>
