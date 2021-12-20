@@ -12,6 +12,7 @@ export type SearchSuggestionsProps = {
 
 const SearchSuggestions = ({open, setOpen, query, setQuery}: SearchSuggestionsProps) => {
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
+
   const suggestions = useFetchApi("/suggestions?query=" + query)
 
   return (
@@ -31,7 +32,7 @@ const SearchSuggestions = ({open, setOpen, query, setQuery}: SearchSuggestionsPr
               <ul
                 role="list"
               >
-                {suggestions.map((suggestions, index) => (
+                {suggestions.map((suggestions: string, index: number) => (
                   <li
                     key={index}
                     className="cursor-pointer px-3 py-3 sm:px-2 sm:py-2 hover:bg-gray-50 hover:text-gray-900"

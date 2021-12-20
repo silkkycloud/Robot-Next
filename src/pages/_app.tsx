@@ -6,6 +6,7 @@ import '@fontsource/inter'
 
 import Nav from '../components/Nav/Nav'
 import { DefaultSeo } from 'next-seo'
+import { ThemeProvider } from 'next-themes'
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -17,10 +18,11 @@ const App = ({ Component, pageProps }: AppProps) => (
         description: 'An open-source alternative frontend for YouTube which is efficient by design.',
       }}
     />
-
-    <Nav>
-      <Component {...pageProps} />
-    </Nav>
+    <ThemeProvider attribute="class">
+      <Nav>
+          <Component {...pageProps} />
+      </Nav>
+    </ThemeProvider>
   </>
 )
 

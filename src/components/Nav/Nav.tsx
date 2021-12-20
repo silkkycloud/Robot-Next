@@ -1,5 +1,6 @@
 import React from 'react'
 import { Fragment, useState } from 'react'
+import { useTheme } from 'next-themes'
 import { useSnapshot } from 'valtio'
 import state from '../../state'
 
@@ -11,6 +12,7 @@ import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome, AiOutlineSearch } fr
 import { FaRss } from 'react-icons/fa'
 import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
+import { MdDarkMode, MdLightMode } from 'react-icons/md'
 
 export type NavProps = {
   children?: React.ReactNode
@@ -19,6 +21,8 @@ export type NavProps = {
 const Nav = ({children}: NavProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+
+  const {theme, setTheme} = useTheme()
 
   const snap = useSnapshot(state)
 
@@ -48,7 +52,7 @@ const Nav = ({children}: NavProps) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white">
+              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white dark:bg-neutral-700">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -144,7 +148,7 @@ const Nav = ({children}: NavProps) => {
 
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-          <div className="flex flex-col h-screen flex-grow border-r border-gray-200 pt-5 bg-white overflow-y-auto">
+          <div className="flex flex-col h-screen flex-grow border-r border-gray-200 dark:border-neutral-900 pt-5 bg-white dark:bg-neutral-800 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
               <Link href="/" passHref>
                 <a className="cursor-pointer group flex items-center">
@@ -209,7 +213,7 @@ const Nav = ({children}: NavProps) => {
 
         {/* Sidebar menu opener and search bar */}
         <div className="md:pl-64 flex flex-col flex-1">
-          <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+          <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white dark:bg-neutral-800 shadow">
             <button
               type="button"
               className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500 md:hidden"
@@ -226,14 +230,31 @@ const Nav = ({children}: NavProps) => {
                     <div className="absolute inset-y-0 left-0 flex items-center">
                       <button
                         type="button"
-                        className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
                         onClick={() => setSearchOpen(true)}
                       >
                         <span className="sr-only">Open search</span>
-                        <AiOutlineSearch className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        <AiOutlineSearch className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-white" aria-hidden="true" />
                         Search
                       </button>
                     </div>
+                  </div>
+                </div>
+                <div className="w-full flex md:ml-0">
+                  <div className="absolute inset-y-0 right-3 flex items-center">
+                    <button
+                      type="button"
+                      className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
+                      onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
+                    >
+                      <span className="sr-only">Switch theme</span>
+                      {theme == 'dark' ? (
+                        <MdDarkMode className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white" aria-hidden="true" />
+                      ) : (
+                        <MdLightMode className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                      )}
+                      Theme
+                    </button>
                   </div>
                 </div>
               </div>

@@ -12,7 +12,7 @@ const useFetchApi = (path: string) => {
         const res = await fetch(snap.apiUrl + path)
         setData(await res.json())
       } catch (err) {
-        console.log(err)
+        console.error(err)
       }
     }
     fetchApi(path)
