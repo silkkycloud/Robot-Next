@@ -2,15 +2,21 @@ import { useState, useEffect } from 'react'
 import { useSnapshot } from 'valtio'
 import state from '../state'
 
-const useFetchApi = (path: string) => {
+const useFetchApi = (path: string): [any[], boolean] => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
   const snap = useSnapshot(state)
 
   useEffect(() => {
     const fetchApi = async (path: string) => {
       try {
-        const res = await fetch(snap.apiUrl + path)
-        setData(await res.json())
+        setLoading(true)
+        await fetch(snap.apiUrl + path)
+          .then((res) => res.json())
+          .then((res) => {
+            setLoading(false)
+            setData(res)
+          })
       } catch (err) {
         console.error(err)
       }
@@ -18,7 +24,7 @@ const useFetchApi = (path: string) => {
     fetchApi(path)
   }, [path, snap.apiUrl])
 
-  return data
+  return [data, loading]
 }
 
 export default useFetchApi

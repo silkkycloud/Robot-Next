@@ -13,7 +13,7 @@ export type SearchSuggestionsProps = {
 const SearchSuggestions = ({open, setOpen, query, setQuery}: SearchSuggestionsProps) => {
   const [selectedSuggestion, setSelectedSuggestion] = useState(0)
 
-  const suggestions = useFetchApi("/suggestions?query=" + query)
+  const [suggestions, suggestionsLoading] = useFetchApi("/suggestions?query=" + query)
 
   return (
     <>

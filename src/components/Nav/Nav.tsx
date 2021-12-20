@@ -5,6 +5,7 @@ import { useSnapshot } from 'valtio'
 import state from '../../state'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import NavLink from './NavLink'
 import Search from '../Search/Search'
@@ -76,10 +77,12 @@ const Nav = ({children}: NavProps) => {
                 <div className="flex-shrink-0 flex items-center px-4">
                   <Link href="/" passHref>
                     <a className="cursor-pointer group flex items-center">
-                      <img
-                        className="mr-3 flex-shrink-0 h-10 w-auto"
+                      <Image
+                        className="mr-3 flex-shrink-0"
                         src="/logo.svg"
                         alt="Piped"
+                        height={50}
+                        width={50}
                         onClick={() => setSidebarOpen(false)}
                       />
                       <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
@@ -152,10 +155,12 @@ const Nav = ({children}: NavProps) => {
             <div className="flex items-center flex-shrink-0 px-4">
               <Link href="/" passHref>
                 <a className="cursor-pointer group flex items-center">
-                  <img
-                    className="mr-3 flex-shrink-0 h-10 w-auto"
+                  <Image
+                    className="mr-3 flex-shrink-0"
                     src="/logo.svg"
                     alt="Piped"
+                    height={50}
+                    width={50}
                   />
                   <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
                     v{snap.version}
