@@ -22,9 +22,9 @@ const Nav = ({children}: NavProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
-  const {theme, setTheme} = useTheme()
-
   const snap = useSnapshot(state)
+
+  const {theme, setTheme} = useTheme()
 
   return (
     <>
@@ -41,7 +41,7 @@ const Nav = ({children}: NavProps) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+              <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75 dark:bg-black dark:bg-opacity-75" />
             </Transition.Child>
             <Transition.Child
               as={Fragment}
@@ -52,7 +52,7 @@ const Nav = ({children}: NavProps) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white dark:bg-neutral-700">
+              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white dark:bg-neutral-800">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -82,7 +82,7 @@ const Nav = ({children}: NavProps) => {
                         alt="Piped"
                         onClick={() => setSidebarOpen(false)}
                       />
-                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
                         v{snap.version}
                       </span>
                     </a>
@@ -157,7 +157,7 @@ const Nav = ({children}: NavProps) => {
                     src="/logo.svg"
                     alt="Piped"
                   />
-                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
                     v{snap.version}
                   </span>
                 </a>
@@ -216,7 +216,7 @@ const Nav = ({children}: NavProps) => {
           <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white dark:bg-neutral-800 shadow">
             <button
               type="button"
-              className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500 md:hidden"
+              className="px-4 border-r border-gray-200 dark:border-neutral-900 text-gray-500 dark:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-600 md:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>

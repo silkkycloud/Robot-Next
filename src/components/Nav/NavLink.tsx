@@ -2,11 +2,12 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import Link from 'next/link'
+import { IconType } from 'react-icons'
 
 export type NavLinksProps = {
   name: string,
   href: string,
-  Icon?: React.ReactNode,
+  Icon?: IconType,
   external?: boolean,
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
