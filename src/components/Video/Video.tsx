@@ -38,7 +38,7 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
               />
               <div className="relative">
                 <div className="absolute bottom-0 right-0 pb-1 pr-1">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-black opacity-80 text-white">
+                  <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs font-semibold bg-black opacity-80 text-white">
                     {timeFormat(duration)}
                   </span>
                 </div>
