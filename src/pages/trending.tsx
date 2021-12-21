@@ -10,7 +10,7 @@ export type TrendingVideosProps = {
   trending: any[]
 }
 
-// This is very stupid and temporary solution, it will be removed.
+// This is a very stupid and temporary solution, it will be removed.
 const LoadingTrendingVideos = (): JSX.Element => (
   <ul
     role="list"
