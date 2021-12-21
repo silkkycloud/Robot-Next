@@ -62,7 +62,7 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
           <div className="leading-6 space-y-1 pr-2">
             <Link href={url} passHref>
               <a>
-                <h3 className="text-sm font-semibold">
+                <h3 className="line-clamp-2 text-sm font-semibold">
                   {title}
                 </h3>
               </a>
@@ -74,6 +74,15 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
                     {uploaderName}
                   </p>
                   {uploaderVerified ? <HiCheckCircle className="ml-1 h-4 w-4" /> : null}
+                </div>
+              </a>
+            </Link>
+            <Link href={url} passHref>
+              <a>
+                <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
+                  <p className="text-sm">
+                    {views} views &#8226; {uploadedDate}
+                  </p>
                 </div>
               </a>
             </Link>
