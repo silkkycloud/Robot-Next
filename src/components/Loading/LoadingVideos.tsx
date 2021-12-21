@@ -1,8 +1,9 @@
 import React from 'react'
 
 import Image from 'next/image'
+import { VideoGrid } from '../lib/Grid/Grid'
 
-const LoadingVideo = () => (
+export const LoadingVideo = () => (
   <div>
     <div className="space-y-4">
       {/* Thumbnail */}
@@ -30,24 +31,37 @@ const LoadingVideo = () => (
           />
         </div>
         <div className="leading-6 space-y-1 pr-2">
-          <div
-            className="rounded-sm bg-gray-200 dark:bg-neutral-800"
-            style={{
-              width: '10rem',
-              height: '1.5rem'
-            }}
-          />
-          <div
-            className="rounded-sm bg-gray-200 dark:bg-neutral-800"
-            style={{
-              width: '7rem',
-              height: '1rem'
-            }}
-          />
+          <div className="w-40 h-6 rounded-sm bg-gray-200 dark:bg-neutral-800" />
+          <div className="w-28 h-6 rounded-sm bg-gray-200 dark:bg-neutral-800" />
         </div>
       </div>
     </div>
   </div>
 )
 
-export default LoadingVideo
+const LoadingVideos = () => (
+  <VideoGrid>
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+  </VideoGrid>
+)
+
+export default LoadingVideos
