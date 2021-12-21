@@ -1,6 +1,6 @@
 import React from 'react'
-import { useSnapshot } from 'valtio'
-import state from '../../state'
+
+import { timeFormat, numberFormat } from '../../functions/format'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,8 +20,6 @@ export type VideoProps = {
 }
 
 const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar, uploadedDate, duration, views, uploaderVerified}: VideoProps) => {
-  const snap = useSnapshot(state)
-
   return (
     <div>
       <div className="space-y-4 cursor-pointer">
@@ -38,6 +36,13 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
                 height={118}
                 layout="responsive"
               />
+              <div className="relative">
+                <div className="absolute bottom-0 right-0 pb-1 pr-1">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-black text-white">
+                    {timeFormat(duration)}
+                  </span>
+                </div>
+              </div>
             </div>
           </a>
         </Link>
@@ -81,7 +86,7 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
               <a>
                 <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
                   <p className="text-sm">
-                    {views} views &#8226; {uploadedDate}
+                    {numberFormat(views)} views &#8226; {uploadedDate}
                   </p>
                 </div>
               </a>
