@@ -10,9 +10,9 @@ export type SearchSuggestionsProps = {
 }
 
 const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Element => {
-  const [selected, setSelected] = useState<number>()
-  const [hovered, setHovered] = useState<number>()
-  const [cursor, setCursor] = useState<number>(-1)
+  const [selected, setSelected] = useState<string>('')
+  const [hovered, setHovered] = useState<string>('')
+  const [cursor, setCursor] = useState<number>()
 
   const downPress = useKeyPress('ArrowDown')
   const upPress = useKeyPress('ArrowUp')
@@ -22,26 +22,39 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
 
   useEffect(() => {
     if (suggestions.length && downPress) {
-      setCursor(prevState =>
-        prevState < suggestions.length - 1 ? prevState + 1 : prevState
-      )
+      setCursor(prevState => {
+        if (prevState != undefined)
+          if (prevState < suggestions.length - 1)
+            return prevState + 1
+          else
+            return prevState
+        else
+          setCursor(0)
+      })
     }
   }, [downPress])
   useEffect(() => {
     if (suggestions.length && upPress) {
-      setCursor(prevState =>
-        prevState > 0 ? prevState - 1 : prevState
-      )
+      setCursor(prevState => {
+        if (prevState != undefined)
+          if (prevState > 0)
+            return prevState - 1
+          else
+            return prevState
+        else
+          setCursor(0)
+      })
     }
   }, [upPress])
   useEffect(() => {
     if (suggestions.length && enterPress) {
-      setSelected(cursor)
+      if (cursor != undefined)
+        setSelected(suggestions[cursor])
     }
   }, [enterPress, cursor])
   useEffect(() => {
     if (suggestions.length && hovered) {
-      setCursor(hovered)
+      setCursor(suggestions.indexOf(hovered))
     }
   }, [hovered])
 
@@ -50,16 +63,16 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
       role="list"
       className="overflow-auto max-h-48 snap-y sm:max-h-60 md:max-h-screen"
     >
-      {suggestions.map((suggestion: string, index: number) =>
+      {suggestions.map((suggestion: string, i: number) =>
         <li
-          key={index.toString()}
+          key={suggestion}
           className={classNames(
-            index === cursor ? 'bg-gray-50 dark:bg-neutral-900' : '',
+            i === cursor ? 'bg-gray-50 dark:bg-neutral-900' : '',
             'rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2'
           )}
-          onClick={() => setSelected(index)}
-          onMouseEnter={() => setHovered(index)}
-          onMouseLeave={() => setHovered(undefined)}
+          onClick={() => setSelected(suggestion)}
+          onMouseEnter={() => setHovered(suggestion)}
+          onMouseLeave={() => setHovered('')}
         >
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">
