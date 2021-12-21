@@ -25,7 +25,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       />
       <ThemeProvider
         attribute="class"
-        forcedTheme={snap.settings.selectedTheme}
+        forcedTheme={snap.theme}
       >
         <Nav>
           <Component {...pageProps} />

@@ -10,6 +10,7 @@ const getInitialState = () => {
     version: '0.1.0',
     apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
+    theme: 'light',
     settings: {
       sponsorBlock: true,
       skipSponsor: true,
@@ -19,7 +20,6 @@ const getInitialState = () => {
       skipInteraction: true,
       skipSelfPromo: true,
       skipMusicOffTopic: true,
-      selectedTheme: 'light',
       autoPlayVideo: true,
       listen: false,
       resolutions: [144, 240, 360, 480, 720, 1080, 1440, 2160, 4320],

@@ -1,5 +1,4 @@
-import React from 'react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { useSnapshot } from 'valtio'
 import state from '../../state'
@@ -24,7 +23,6 @@ const Nav = ({children}: NavProps): JSX.Element => {
   const [searchOpen, setSearchOpen] = useState(false)
 
   const snap = useSnapshot(state)
-
   const {forcedTheme} = useTheme()
 
   return (
@@ -250,7 +248,7 @@ const Nav = ({children}: NavProps): JSX.Element => {
                     <button
                       type="button"
                       className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
-                      onClick={() => state.settings.selectedTheme = state.settings.selectedTheme == 'dark' ? 'light' : 'dark'}
+                      onClick={() => state.theme = snap.theme == 'dark' ? 'light' : 'dark'}
                     >
                       <span className="sr-only">Switch theme</span>
                       {forcedTheme == 'dark' ? (
@@ -277,7 +275,10 @@ const Nav = ({children}: NavProps): JSX.Element => {
         </div>
 
         {/* Search */}
-        <Search open={searchOpen} setOpen={setSearchOpen} />
+        <Search
+          open={searchOpen}
+          setOpen={setSearchOpen}
+        />
 
       </section>
     </>
