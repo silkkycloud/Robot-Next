@@ -30,12 +30,12 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
           <a>
             <div className="aspect-w-3 aspect-h-2">
               <Image
-                className="object-cover"
+                className="object-cover bg-gray-300 dark:bg-neutral-800"
                 src={thumbnail}
                 loading="lazy"
                 alt={title}
-                height={118}
                 width={210}
+                height={118}
                 layout="responsive"
               />
             </div>
@@ -46,14 +46,14 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
         <div className="flex flex-row relative">
           <Link href={uploaderUrl} passHref>
             <a>
-              <div className="block mr-2">
+              <div className="block mr-2 rounded-full">
                 <Image
-                  className="rounded-full"
+                  className="rounded-full bg-gray-200 dark:bg-neutral-800"
                   src={uploaderAvatar}
                   loading="lazy"
                   alt={uploaderName}
-                  height={36}
                   width={36}
+                  height={36}
                   layout="fixed"
                 />
               </div>
@@ -62,7 +62,7 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
           <div className="leading-6 space-y-1 pr-2">
             <Link href={url} passHref>
               <a>
-                <h3 className="line-clamp-2 text-sm font-semibold">
+                <h3 className="line-clamp-2 text-black dark:text-white text-sm font-semibold">
                   {title}
                 </h3>
               </a>
