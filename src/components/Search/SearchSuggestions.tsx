@@ -65,7 +65,7 @@ const SearchSuggestions = ({query, setQuery}: SearchSuggestionsProps): JSX.Eleme
     >
       {suggestions.map((suggestion: string, i: number) =>
         <li
-          key={suggestion}
+          key={i.toString()}
           className={classNames(
             i === cursor ? 'bg-gray-50 dark:bg-neutral-900' : '',
             'rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2'
