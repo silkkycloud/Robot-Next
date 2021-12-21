@@ -22,7 +22,7 @@ const useFetchApi = (path: string): [any[], boolean] => {
       }
     }
     fetchApi(path)
-  }, [path, snap.apiUrl])
+  }, [path])
 
   return [data, loading]
 }

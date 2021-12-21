@@ -6,7 +6,7 @@ import state from '../../state'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
-import NavLink from './NavLink'
+import { InternalLink, ExternalLink } from './NavLink'
 import Search from '../Search/Search'
 import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome, AiOutlineSearch } from 'react-icons/ai'
 import { FaRss } from 'react-icons/fa'
@@ -91,31 +91,31 @@ const Nav = ({children}: NavProps): JSX.Element => {
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
-                    {snap.authenticated ? <NavLink
+                    {snap.authenticated ? <InternalLink
                       name="Home"
                       href="/"
                       Icon={AiFillHome}
                       onClick={() => setSidebarOpen(false)}
                     /> : null}
-                    <NavLink
+                    <InternalLink
                       name="Trending"
                       href="/trending"
                       Icon={AiFillFire}
                       onClick={() => setSidebarOpen(false)}
                     />
-                    {snap.authenticated ? <NavLink
+                    {snap.authenticated ? <InternalLink
                       name="Feed"
                       href="/feed"
                       Icon={FaRss}
                       onClick={() => setSidebarOpen(false)}
                     /> : null}
-                    {snap.authenticated ? <NavLink
+                    {snap.authenticated ? <InternalLink
                       name="Subscriptions"
                       href="/subscriptions"
                       Icon={AiFillHeart}
                       onClick={() => setSidebarOpen(false)}
                     /> : null}
-                    <NavLink
+                    <InternalLink
                       name="Settings"
                       href="/settings"
                       Icon={IoIosSettings}
@@ -125,17 +125,15 @@ const Nav = ({children}: NavProps): JSX.Element => {
                 </div>
                 <div className="mt-5 flex flex-col">
                   <nav className="px-2 space-y-1">
-                    <NavLink
+                    <ExternalLink
                       name="GitHub"
                       href="https://github.com/silkkycloud/piped-robot"
                       Icon={AiFillGithub}
-                      external={true}
                     />
-                    <NavLink
+                    <ExternalLink
                       name="Donate"
                       href="https://github.com/silkkycloud/piped-robot"
                       Icon={AiFillHeart}
-                      external={true}
                     />
                   </nav>
                 </div>
@@ -168,27 +166,27 @@ const Nav = ({children}: NavProps): JSX.Element => {
             </div>
             <div className="mt-5 flex-grow flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                {snap.authenticated ? <NavLink
+                {snap.authenticated ? <InternalLink
                   name="Home"
                   href="/"
                   Icon={AiFillHome}
                 /> : null}
-                <NavLink
+                <InternalLink
                   name="Trending"
                   href="/trending"
                   Icon={AiFillFire}
                 />
-                {snap.authenticated ? <NavLink
+                {snap.authenticated ? <InternalLink
                   name="Feed"
                   href="/feed"
                   Icon={FaRss}
                 /> : null}
-                {snap.authenticated ? <NavLink
+                {snap.authenticated ? <InternalLink
                   name="Subscriptions"
                   href="/subscriptions"
                   Icon={AiFillHeart}
                 /> : null}
-                <NavLink
+                <InternalLink
                   name="Settings"
                   href="/settings"
                   Icon={IoIosSettings}
@@ -197,17 +195,15 @@ const Nav = ({children}: NavProps): JSX.Element => {
             </div>
             <div className="mt-5 flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                <NavLink
+                <ExternalLink
                   name="GitHub"
                   href="https://github.com/silkkycloud/piped-robot"
                   Icon={AiFillGithub}
-                  external={true}
                 />
-                <NavLink
+                <ExternalLink
                   name="Donate"
                   href="https://github.com/silkkycloud/piped-robot"
                   Icon={AiFillHeart}
-                  external={true}
                 />
               </nav>
             </div>
