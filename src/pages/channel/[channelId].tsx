@@ -1,13 +1,13 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useChannelApi } from '../../hooks/useApi'
+import { useChannelApi } from '@/hooks/useApi'
 
-import { VideoGrid } from '../../components/lib/Grid/Grid'
-import Video from '../../components/Video/Video'
-
-import { Channel } from '../../types/api'
+import { VideoGrid } from '@/components/lib/Grid/Grid'
+import Video from '@/components/Video/Video'
+import LoadingVideos from '@/components/Loading/LoadingVideos'
 import { NextSeo } from 'next-seo'
-import LoadingVideos from '../../components/Loading/LoadingVideos'
+
+import type { Channel } from '@/types/api'
 
 export type ChannelVideosProps = {
   channel: Channel
@@ -15,7 +15,7 @@ export type ChannelVideosProps = {
 
 export const ChannelVideos = ({channel}: ChannelVideosProps): JSX.Element => (
   <VideoGrid>
-    {channel.relatedStreams.map((video, i: number) => (
+    {channel.relatedStreams != undefined ? channel.relatedStreams.map((video, i: number) => (
       <li key={i.toString()}>
         <Video
           url={video.url}
@@ -30,7 +30,7 @@ export const ChannelVideos = ({channel}: ChannelVideosProps): JSX.Element => (
           uploaderVerified={video.uploaderVerified}
         />
       </li>
-    ))}
+    )) : null}
   </VideoGrid>
 )
 
@@ -38,7 +38,7 @@ const Channel = () => {
   const router = useRouter()
   const { channelId } = router.query
 
-  const [channel, channelLoading] = useChannelApi(channelId)
+  const [channel, channelLoading] = useChannelApi(channelId, router.isReady)
 
   return (
     <>

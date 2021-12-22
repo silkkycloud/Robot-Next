@@ -34,7 +34,7 @@ export const useTrendingApi = (): [Trending, boolean] => {
   return [data, loading]
 }
 
-export const useChannelApi = (channelId: string | string[] | undefined): [Channel, boolean] => {
+export const useChannelApi = (channelId: string | string[] | undefined, isReady: boolean): [Channel, boolean] => {
   const [data, setData] = useState({
     id: '',
     name: '',
@@ -50,8 +50,10 @@ export const useChannelApi = (channelId: string | string[] | undefined): [Channe
   const snap = useSnapshot(state)
 
   useEffect(() => {
-    fetchApi(snap.apiUrl + '/channel/' + channelId, setData, setLoading)
-  }, [channelId])
+    if (isReady) {
+      fetchApi(snap.apiUrl + '/channel/' + channelId, setData, setLoading)
+    }
+}, [channelId])
 
   return [data, loading]
 }

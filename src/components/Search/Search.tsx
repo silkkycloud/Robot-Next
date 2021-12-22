@@ -1,7 +1,7 @@
 import React, { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
-import classNames from '../../functions/classNames'
-import useKeyPress from '../../hooks/useKeyPress'
-import { useSuggestionsApi } from '../../hooks/useApi'
+import classNames from '@/functions/classNames'
+import useKeyPress from '@/hooks/useKeyPress'
+import { useSuggestionsApi } from '@/hooks/useApi'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { HiX } from 'react-icons/hi'

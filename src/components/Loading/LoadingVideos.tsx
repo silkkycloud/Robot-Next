@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Image from 'next/image'
-import { VideoGrid } from '../lib/Grid/Grid'
+import { VideoGrid } from '@/lib/Grid/Grid'
 
 export const LoadingVideo = () => (
   <div>

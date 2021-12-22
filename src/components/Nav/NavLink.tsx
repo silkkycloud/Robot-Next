@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 
-import classNames from '../../functions/classNames'
+import classNames from '@/functions/classNames'
 
 import Link from 'next/link'
 import type { IconType } from 'react-icons'
