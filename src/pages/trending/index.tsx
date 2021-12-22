@@ -38,17 +38,11 @@ const Trending = (): JSX.Element => {
   return (
     <>
       <NextSeo title="Trending - Piped" />
-      <div className="bg-white dark:bg-neutral-900">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
-            {trendingLoading ? (
-              <LoadingVideos />
-            ) : (
-              <TrendingVideos trending={trending} />
-            )}
-          </div>
-        </div>
-      </div>
+      {trendingLoading ? (
+        <LoadingVideos />
+      ) : (
+        <TrendingVideos trending={trending} />
+      )}
     </>
   )
 }

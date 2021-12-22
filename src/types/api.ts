@@ -11,7 +11,7 @@ export type Trending = {
   uploaderName: string,
   uploaderUrl: string,
   uploaderAvatar: string,
-  uploadedData: string,
+  uploadedDate: string,
   duration: number,
   views: number,
   uploaderVerified: boolean
@@ -33,7 +33,7 @@ export type Channel = {
     uploaderName: string,
     uploaderUrl: string,
     uploaderAvatar: null,
-    uploadedData: string,
+    uploadedDate: string,
     duration: number,
     views: number,
     uploaderVerified: boolean
