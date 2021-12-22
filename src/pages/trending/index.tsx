@@ -1,10 +1,10 @@
 import React from 'react'
-import useFetchApi from '../hooks/useFetchApi'
+import { useTrendingApi } from '../../hooks/useApi'
 
 import { NextSeo } from 'next-seo'
-import { VideoGrid } from '../components/lib/Grid/Grid'
-import Video from '../components/Video/Video'
-import LoadingVideos from '../components/Loading/LoadingVideos'
+import { VideoGrid } from '../../components/lib/Grid/Grid'
+import Video from '../../components/Video/Video'
+import LoadingVideos from '../../components/Loading/LoadingVideos'
 
 export type TrendingVideosProps = {
   // TODO: Statically type API responses
@@ -33,7 +33,7 @@ export const TrendingVideos = ({trending}: TrendingVideosProps): JSX.Element => 
 )
 
 const Trending = (): JSX.Element => {
-  const [trending, trendingLoading] = useFetchApi('/trending?region=US')
+  const [trending, trendingLoading] = useTrendingApi()
 
   return (
     <>
