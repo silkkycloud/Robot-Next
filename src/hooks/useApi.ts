@@ -53,7 +53,7 @@ export const useChannelApi = (channelId: string | string[] | undefined, isReady:
     if (isReady) {
       fetchApi(snap.apiUrl + '/channel/' + channelId, setData, setLoading)
     }
-}, [channelId])
+}, [channelId, isReady])
 
   return [data, loading]
 }
