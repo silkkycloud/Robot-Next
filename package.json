@@ -29,7 +29,8 @@
     ]
   },
   "prettier": {
-    "semi": false
+    "semi": false,
+    "singleQuote": true
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.1",
