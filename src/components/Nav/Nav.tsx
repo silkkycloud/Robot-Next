@@ -20,11 +20,11 @@ import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
 import { IoIosSettings } from 'react-icons/io'
 import { MdDarkMode, MdLightMode } from 'react-icons/md'
 
-export type NavProps = {
+export interface NavProps {
   children?: React.ReactNode
 }
 
-const Nav = ({ children }: NavProps): JSX.Element => {
+const Nav = (props: NavProps): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
@@ -104,36 +104,36 @@ const Nav = ({ children }: NavProps): JSX.Element => {
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
-                    {snap.authenticated ? (
+                    {snap.authenticated && (
                       <InternalLink
                         name="Home"
                         href="/"
                         Icon={AiFillHome}
                         onClick={() => setSidebarOpen(false)}
                       />
-                    ) : null}
+                    )}
                     <InternalLink
                       name="Trending"
                       href="/trending"
                       Icon={AiFillFire}
                       onClick={() => setSidebarOpen(false)}
                     />
-                    {snap.authenticated ? (
+                    {snap.authenticated && (
                       <InternalLink
                         name="Feed"
                         href="/feed"
                         Icon={FaRss}
                         onClick={() => setSidebarOpen(false)}
                       />
-                    ) : null}
-                    {snap.authenticated ? (
+                    )}
+                    {snap.authenticated && (
                       <InternalLink
                         name="Subscriptions"
                         href="/subscriptions"
                         Icon={AiFillHeart}
                         onClick={() => setSidebarOpen(false)}
                       />
-                    ) : null}
+                    )}
                     <InternalLink
                       name="Settings"
                       href="/settings"
@@ -185,24 +185,24 @@ const Nav = ({ children }: NavProps): JSX.Element => {
             </div>
             <div className="mt-5 flex-grow flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                {snap.authenticated ? (
+                {snap.authenticated && (
                   <InternalLink name="Home" href="/" Icon={AiFillHome} />
-                ) : null}
+                )}
                 <InternalLink
                   name="Trending"
                   href="/trending"
                   Icon={AiFillFire}
                 />
-                {snap.authenticated ? (
+                {snap.authenticated && (
                   <InternalLink name="Feed" href="/feed" Icon={FaRss} />
-                ) : null}
-                {snap.authenticated ? (
+                )}
+                {snap.authenticated && (
                   <InternalLink
                     name="Subscriptions"
                     href="/subscriptions"
                     Icon={AiFillHeart}
                   />
-                ) : null}
+                )}
                 <InternalLink
                   name="Settings"
                   href="/settings"
@@ -289,17 +289,15 @@ const Nav = ({ children }: NavProps): JSX.Element => {
           </div>
 
           {/* Primary page content */}
-          {children ? (
+          {props.children && (
             <main className="flex-1">
-              <div className="py-6">{children}</div>
+              <div>{props.children}</div>
             </main>
-          ) : null}
+          )}
         </div>
 
         {/* Search */}
-        {searchOpen ? (
-          <Search open={searchOpen} setOpen={setSearchOpen} />
-        ) : null}
+        <Search open={searchOpen} setOpen={setSearchOpen} />
       </section>
     </>
   )

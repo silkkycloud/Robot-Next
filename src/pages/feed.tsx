@@ -2,7 +2,7 @@ import React from 'react'
 
 import { NextSeo } from 'next-seo'
 
-const Feed = () => {
+const Feed = (): JSX.Element => {
   return (
     <>
       <NextSeo title="Feed - Piped" />

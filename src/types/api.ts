@@ -26,7 +26,7 @@ export type Channel = {
   nextpage: string
   subscriberCount: number
   verified: boolean
-  relatedStreams: {
+  relatedStreams?: {
     url: string
     title: string
     thumbnail: string
@@ -38,7 +38,9 @@ export type Channel = {
     views: number
     uploaderVerified: boolean
   }[]
-  // Errors
+  // Channel API Errors (eg. Channel does not exist)
   error?: string
   message?: string
 }
+
+export type Search = {}

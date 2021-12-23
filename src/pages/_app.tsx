@@ -10,7 +10,7 @@ import Nav from '../components/Nav/Nav'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
 
-const PipedApp = ({ Component, pageProps }: AppProps) => {
+const PipedApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   const snap = useSnapshot(state)
 
   return (

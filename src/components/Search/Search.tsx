@@ -7,17 +7,17 @@ import React, {
 } from 'react'
 import classNames from '@/functions/classNames'
 import useKeyPress from '@/hooks/useKeyPress'
-import { useSuggestionsApi } from '@/hooks/useApi'
+import { useFetchSuggestions } from '@/hooks/api'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { HiX } from 'react-icons/hi'
 
-export type SearchProps = {
+export interface SearchProps {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
+const Search = (props: SearchProps): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selected, setSelected] = useState<string>('')
   const [hovered, setHovered] = useState<string>('')
@@ -27,7 +27,7 @@ const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
   const upPress = useKeyPress('ArrowUp')
   const enterPress = useKeyPress('Enter')
 
-  const [suggestions] = useSuggestionsApi(searchQuery)
+  const suggestions = useFetchSuggestions(searchQuery)
 
   useEffect(() => {
     if (suggestions.length && downPress) {
@@ -89,11 +89,11 @@ const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
   )
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
         className="absolute z-10 inset-x-0 top-0 overflow-y-auto"
-        onClose={setOpen}
+        onClose={props.setOpen}
       >
         <div className="flex items-end justify-center sm:pt-4 sm:px-4 sm:pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -129,7 +129,7 @@ const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
                 <button
                   type="button"
                   className="bg-white dark:bg-neutral-800 rounded-md text-gray-400 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600"
-                  onClick={() => setOpen(false)}
+                  onClick={() => props.setOpen(false)}
                 >
                   <span className="sr-only">Close</span>
                   <HiX className="h-6 w-6" aria-hidden="true" />

@@ -6,70 +6,61 @@ import classNames from '@/functions/classNames'
 import Link from 'next/link'
 import type { IconType } from 'react-icons'
 
-export type ExternalLinkProps = {
+export interface ExternalLinkProps {
   name: string
   href: string
   Icon?: IconType
 }
 
-export type InternalLinkProps = {
+export interface InternalLinkProps {
   name: string
   href: string
   Icon?: IconType
   onClick?: React.MouseEventHandler<HTMLAnchorElement>
 }
 
-export const ExternalLink = ({
-  name,
-  href,
-  Icon,
-}: ExternalLinkProps): JSX.Element => (
+export const ExternalLink = (props: ExternalLinkProps): JSX.Element => (
   <a
     className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
-    href={href}
-    key={name}
+    href={props.href}
+    key={props.name}
     rel="noreferrer"
     target="_blank"
   >
     {/* @ts-ignore */}
-    <Icon
+    <props.Icon
       className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-white"
       aria-hidden="true"
     />
-    {name}
+    {props.name}
   </a>
 )
 
-export const InternalLink = ({
-  name,
-  href,
-  Icon,
-  onClick,
-}: InternalLinkProps): JSX.Element => {
+export const InternalLink = (props: InternalLinkProps): JSX.Element => {
   const router = useRouter()
 
   return (
-    <Link href={href} key={name} passHref>
+    <Link href={props.href} key={props.name} passHref>
       <a
         className={classNames(
-          router.pathname === href
+          router.pathname === props.href
             ? 'bg-gray-100 dark:bg-neutral-900 text-red-600 dark:text-white'
             : 'text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white',
           'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
         )}
-        onClick={onClick}
+        onClick={props.onClick}
       >
         {/* @ts-ignore */}
-        <Icon
+        <props.Icon
           className={classNames(
-            router.pathname === href
+            router.pathname === props.href
               ? 'text-red-600 dark:bg-neutral-900'
               : 'text-gray-400 group-hover:text-gray-500 dark:group-hover:text-white',
             'mr-3 flex-shrink-0 h-6 w-6'
           )}
           aria-hidden="true"
         />
-        {name}
+        {props.name}
       </a>
     </Link>
   )
