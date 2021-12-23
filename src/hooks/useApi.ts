@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react"
-import state from "../state"
+import { useEffect, useState } from 'react'
+import state from '../state'
 
-import fetchApi from "../functions/fetchApi"
+import fetchApi from '../functions/fetchApi'
 
-import type { Suggestions, Trending, Channel } from "@/types/api"
+import type { Suggestions, Trending, Channel } from '@/types/api'
 
 export const useSuggestionsApi = (query: string): [Suggestions, boolean] => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (query != "") {
+    if (query != '') {
       fetchApi(
-        state.apiUrl + "/suggestions?query=" + query,
+        state.apiUrl + '/suggestions?query=' + query,
         setData,
         setLoading
       )
@@ -29,7 +29,7 @@ export const useTrendingApi = (): [Trending, boolean] => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchApi(state.apiUrl + "/trending?region=" + "US", setData, setLoading)
+    fetchApi(state.apiUrl + '/trending?region=' + 'US', setData, setLoading)
   }, [])
 
   return [data, loading]
@@ -41,12 +41,12 @@ export const useChannelApi = (
   isReady: boolean
 ): [Channel, boolean] => {
   const [data, setData] = useState({
-    id: "",
-    name: "",
-    avatarUrl: "",
-    bannerUrl: "",
-    description: "",
-    nextpage: "",
+    id: '',
+    name: '',
+    avatarUrl: '',
+    bannerUrl: '',
+    description: '',
+    nextpage: '',
     subscriberCount: 0,
     verified: false,
     relatedStreams: [],

@@ -4,13 +4,13 @@ import React, {
   SetStateAction,
   useEffect,
   useState,
-} from "react"
-import classNames from "@/functions/classNames"
-import useKeyPress from "@/hooks/useKeyPress"
-import { useSuggestionsApi } from "@/hooks/useApi"
+} from 'react'
+import classNames from '@/functions/classNames'
+import useKeyPress from '@/hooks/useKeyPress'
+import { useSuggestionsApi } from '@/hooks/useApi'
 
-import { Dialog, Transition } from "@headlessui/react"
-import { HiX } from "react-icons/hi"
+import { Dialog, Transition } from '@headlessui/react'
+import { HiX } from 'react-icons/hi'
 
 export type SearchProps = {
   open: boolean
@@ -18,14 +18,14 @@ export type SearchProps = {
 }
 
 const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selected, setSelected] = useState<string>("")
-  const [hovered, setHovered] = useState<string>("")
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selected, setSelected] = useState<string>('')
+  const [hovered, setHovered] = useState<string>('')
   const [cursor, setCursor] = useState<number>()
 
-  const downPress = useKeyPress("ArrowDown")
-  const upPress = useKeyPress("ArrowUp")
-  const enterPress = useKeyPress("Enter")
+  const downPress = useKeyPress('ArrowDown')
+  const upPress = useKeyPress('ArrowUp')
+  const enterPress = useKeyPress('Enter')
 
   const [suggestions] = useSuggestionsApi(searchQuery)
 
@@ -69,12 +69,12 @@ const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
         <li
           key={i.toString()}
           className={classNames(
-            i === cursor ? "bg-gray-50 dark:bg-neutral-900" : "",
-            "rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2"
+            i === cursor ? 'bg-gray-50 dark:bg-neutral-900' : '',
+            'rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2'
           )}
           onClick={() => setSelected(suggestion)}
           onMouseEnter={() => setHovered(suggestion)}
-          onMouseLeave={() => setHovered("")}
+          onMouseLeave={() => setHovered('')}
         >
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">

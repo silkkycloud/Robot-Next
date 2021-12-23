@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 
-import { timeFormat, numberFormat } from "@/functions/format"
+import { timeFormat, numberFormat } from '@/functions/format'
 
-import Image from "next/image"
-import Link from "next/link"
-import { HiCheckCircle } from "react-icons/hi"
+import Image from 'next/image'
+import Link from 'next/link'
+import { HiCheckCircle } from 'react-icons/hi'
 
 export type VideoProps = {
   url: string

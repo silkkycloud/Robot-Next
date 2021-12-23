@@ -6,5 +6,5 @@ updates:
     schedule:
       interval: weekly
     commit-message:
-      prefix: "yarn-deps"
+      prefix: 'yarn-deps'
     target-branch: main

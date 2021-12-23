@@ -1,24 +1,24 @@
-import React, { Fragment, useState } from "react"
-import { useTheme } from "next-themes"
-import { useSnapshot } from "valtio"
-import state from "state"
+import React, { Fragment, useState } from 'react'
+import { useTheme } from 'next-themes'
+import { useSnapshot } from 'valtio'
+import state from 'state'
 
-import Link from "next/link"
-import Image from "next/image"
-import { Dialog, Transition } from "@headlessui/react"
-import { InternalLink, ExternalLink } from "./NavLink"
-import Search from "@/components/Search/Search"
+import Link from 'next/link'
+import Image from 'next/image'
+import { Dialog, Transition } from '@headlessui/react'
+import { InternalLink, ExternalLink } from './NavLink'
+import Search from '@/components/Search/Search'
 import {
   AiFillFire,
   AiFillHeart,
   AiFillGithub,
   AiFillHome,
   AiOutlineSearch,
-} from "react-icons/ai"
-import { FaRss } from "react-icons/fa"
-import { HiOutlineX, HiMenuAlt2 } from "react-icons/hi"
-import { IoIosSettings } from "react-icons/io"
-import { MdDarkMode, MdLightMode } from "react-icons/md"
+} from 'react-icons/ai'
+import { FaRss } from 'react-icons/fa'
+import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
+import { IoIosSettings } from 'react-icons/io'
+import { MdDarkMode, MdLightMode } from 'react-icons/md'
 
 export type NavProps = {
   children?: React.ReactNode
@@ -265,11 +265,11 @@ const Nav = ({ children }: NavProps): JSX.Element => {
                       type="button"
                       className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
                       onClick={() =>
-                        (state.theme = state.theme == "dark" ? "light" : "dark")
+                        (state.theme = state.theme == 'dark' ? 'light' : 'dark')
                       }
                     >
                       <span className="sr-only">Switch theme</span>
-                      {forcedTheme == "dark" ? (
+                      {forcedTheme == 'dark' ? (
                         <MdLightMode
                           className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white"
                           aria-hidden="true"

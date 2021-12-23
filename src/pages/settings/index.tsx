@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-import { NextSeo } from "next-seo"
+import { NextSeo } from 'next-seo'
 
 const Settings = () => {
   return (

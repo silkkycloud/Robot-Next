@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["proxy.piped.silkky.cloud"],
+    domains: ['proxy.piped.silkky.cloud'],
   },
 }

@@ -1,14 +1,14 @@
-import React from "react"
-import { useRouter } from "next/router"
-import { useChannelApi } from "@/hooks/useApi"
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useChannelApi } from '@/hooks/useApi'
 
-import { NextSeo } from "next-seo"
-import Image from "next/image"
-import { VideoGrid } from "@/components/lib/Grid/Grid"
-import Video from "@/components/Video/Video"
-import LoadingVideos from "@/components/Loading/LoadingVideos"
+import { NextSeo } from 'next-seo'
+import Image from 'next/image'
+import { VideoGrid } from '@/components/lib/Grid/Grid'
+import Video from '@/components/Video/Video'
+import LoadingVideos from '@/components/Loading/LoadingVideos'
 
-import type { Channel } from "@/types/api"
+import type { Channel } from '@/types/api'
 
 export type ChannelVideosProps = {
   channel: Channel
@@ -40,7 +40,7 @@ const Channel = () => {
   const { channelId } = router.query
 
   const [channel, channelLoading] = useChannelApi(
-    "/channel/",
+    '/channel/',
     channelId,
     router.isReady
   )

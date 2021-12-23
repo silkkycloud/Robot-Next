@@ -1,10 +1,10 @@
-import React from "react"
-import { useTrendingApi } from "../../hooks/useApi"
+import React from 'react'
+import { useTrendingApi } from '../../hooks/useApi'
 
-import { NextSeo } from "next-seo"
-import { VideoGrid } from "../../components/lib/Grid/Grid"
-import Video from "../../components/Video/Video"
-import LoadingVideos from "../../components/Loading/LoadingVideos"
+import { NextSeo } from 'next-seo'
+import { VideoGrid } from '../../components/lib/Grid/Grid'
+import Video from '../../components/Video/Video'
+import LoadingVideos from '../../components/Loading/LoadingVideos'
 
 export type TrendingVideosProps = {
   // TODO: Statically type API responses

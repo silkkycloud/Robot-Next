@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react'
 
-import Image from "next/image"
-import { VideoGrid } from "@/lib/Grid/Grid"
+import Image from 'next/image'
+import { VideoGrid } from '@/lib/Grid/Grid'
 
 export const LoadingVideo = () => (
   <div>
@@ -25,8 +25,8 @@ export const LoadingVideo = () => (
           <div
             className="rounded-full bg-gray-200 dark:bg-neutral-800"
             style={{
-              width: "36px",
-              height: "36px",
+              width: '36px',
+              height: '36px',
             }}
           />
         </div>

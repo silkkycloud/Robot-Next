@@ -1,16 +1,16 @@
-import { proxy, subscribe } from "valtio"
+import { proxy, subscribe } from 'valtio'
 
 const getInitialState = () => {
   try {
-    const state = JSON.parse(<string>localStorage.getItem("pipedState"))
+    const state = JSON.parse(<string>localStorage.getItem('pipedState'))
     if (state) return state
   } catch (e) {}
 
   return {
-    version: "0.1.0",
-    apiUrl: "https://api.piped.silkky.cloud",
+    version: '0.1.0',
+    apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
-    theme: "light",
+    theme: 'light',
     settings: {
       sponsorBlock: true,
       skipSponsor: true,
@@ -28,7 +28,7 @@ const getInitialState = () => {
       showComments: true,
       minimizeDescription: false,
       watchHistory: false,
-      enabledCodecs: ["av1", "vp9", "avc"],
+      enabledCodecs: ['av1', 'vp9', 'avc'],
       disableLBRY: false,
       proxyLBRY: false,
     },
@@ -38,7 +38,7 @@ const getInitialState = () => {
 export const state = proxy(getInitialState())
 
 subscribe(state, () => {
-  localStorage.setItem("pipedState", JSON.stringify(state))
+  localStorage.setItem('pipedState', JSON.stringify(state))
 })
 
 export default state
