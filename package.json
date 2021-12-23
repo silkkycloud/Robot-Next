@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "license": "AGPL-3.0-or-later",
   "description": "An open-source alternative frontend for YouTube which is efficient by design.",
-  "homepage": "https://github.com/silkkycloud/piped-robot",
+  "homepage": "https://github.com/silkkycloud/Robot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/silkkycloud/piped-robot.git"
+    "url": "https://github.com/silkkycloud/Robot.git"
   },
   "author": {
     "name": "Oscar Melton",
@@ -14,13 +14,22 @@
     "url": "https://www.silkky.cloud"
   },
   "bugs": {
-    "url": "https://github.com/silkkycloud/piped-robot/issues"
+    "url": "https://github.com/silkkycloud/Robot/issues"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "husky install"
+  },
+  "lint-staged": {
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "prettier": {
+    "semi": false
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.1",
@@ -45,6 +54,11 @@
     "@types/react": "17.0.37",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-valtio": "^0.4.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.3",
+    "prettier": "^2.5.1",
     "typescript": "4.5.4"
   }
 }

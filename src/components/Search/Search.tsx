@@ -1,58 +1,57 @@
-import React, { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react'
-import classNames from '@/functions/classNames'
-import useKeyPress from '@/hooks/useKeyPress'
-import { useSuggestionsApi } from '@/hooks/useApi'
+import React, {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react"
+import classNames from "@/functions/classNames"
+import useKeyPress from "@/hooks/useKeyPress"
+import { useSuggestionsApi } from "@/hooks/useApi"
 
-import { Dialog, Transition } from '@headlessui/react'
-import { HiX } from 'react-icons/hi'
+import { Dialog, Transition } from "@headlessui/react"
+import { HiX } from "react-icons/hi"
 
 export type SearchProps = {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Search = ({open, setOpen}: SearchProps): JSX.Element => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selected, setSelected] = useState<string>('')
-  const [hovered, setHovered] = useState<string>('')
+const Search = ({ open, setOpen }: SearchProps): JSX.Element => {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selected, setSelected] = useState<string>("")
+  const [hovered, setHovered] = useState<string>("")
   const [cursor, setCursor] = useState<number>()
 
-  const downPress = useKeyPress('ArrowDown')
-  const upPress = useKeyPress('ArrowUp')
-  const enterPress = useKeyPress('Enter')
+  const downPress = useKeyPress("ArrowDown")
+  const upPress = useKeyPress("ArrowUp")
+  const enterPress = useKeyPress("Enter")
 
   const [suggestions] = useSuggestionsApi(searchQuery)
 
   useEffect(() => {
     if (suggestions.length && downPress) {
-      setCursor(prevState => {
+      setCursor((prevState) => {
         if (prevState != undefined)
-          if (prevState < suggestions.length - 1)
-            return prevState + 1
-          else
-            return prevState
-        else
-          setCursor(0)
+          if (prevState < suggestions.length - 1) return prevState + 1
+          else return prevState
+        else setCursor(0)
       })
     }
   }, [downPress])
   useEffect(() => {
     if (suggestions.length && upPress) {
-      setCursor(prevState => {
+      setCursor((prevState) => {
         if (prevState != undefined)
-          if (prevState > 0)
-            return prevState - 1
-          else
-            return prevState
-        else
-          setCursor(0)
+          if (prevState > 0) return prevState - 1
+          else return prevState
+        else setCursor(0)
       })
     }
   }, [upPress])
   useEffect(() => {
     if (suggestions.length && enterPress) {
-      if (cursor != undefined)
-        setSelected(suggestions[cursor])
+      if (cursor != undefined) setSelected(suggestions[cursor])
     }
   }, [enterPress, cursor])
   useEffect(() => {
@@ -66,16 +65,16 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
       role="list"
       className="overflow-auto max-h-48 snap-y sm:max-h-60 md:max-h-screen"
     >
-      {suggestions.map((suggestion: string, i: number) =>
+      {suggestions.map((suggestion: string, i: number) => (
         <li
           key={i.toString()}
           className={classNames(
-            i === cursor ? 'bg-gray-50 dark:bg-neutral-900' : '',
-            'rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2'
+            i === cursor ? "bg-gray-50 dark:bg-neutral-900" : "",
+            "rounded-md cursor-pointer snap-center px-3 py-3 sm:px-2 sm:py-2"
           )}
           onClick={() => setSelected(suggestion)}
           onMouseEnter={() => setHovered(suggestion)}
-          onMouseLeave={() => setHovered('')}
+          onMouseLeave={() => setHovered("")}
         >
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">
@@ -85,7 +84,7 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
             </div>
           </div>
         </li>
-      )}
+      ))}
     </ul>
   )
 
@@ -110,7 +109,10 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -135,7 +137,10 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
               </div>
               <div className="sm:flex sm:items-start">
                 <div className="mx-auto text-center">
-                  <Dialog.Title as="h2" className="text-xl leading-5 font-medium text-gray-900 dark:text-white">
+                  <Dialog.Title
+                    as="h2"
+                    className="text-xl leading-5 font-medium text-gray-900 dark:text-white"
+                  >
                     Search
                   </Dialog.Title>
                 </div>
@@ -157,9 +162,7 @@ const Search = ({open, setOpen}: SearchProps): JSX.Element => {
                   {/* Search Suggestions */}
                   <div className="flex flex-col h-screen sm:h-auto">
                     <div className="bg-white dark:bg-neutral-800 shadow rounded-md">
-                      <div>
-                        {suggestionsList}
-                      </div>
+                      <div>{suggestionsList}</div>
                     </div>
                   </div>
                 </div>

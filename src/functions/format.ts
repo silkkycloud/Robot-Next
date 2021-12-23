@@ -1,5 +1,5 @@
 export const timeFormat = (duration: any): string => {
-  const pad = function(num: number, size: number) {
+  const pad = function (num: number, size: number) {
     return ("000" + num).slice(size * -1)
   }
 
@@ -8,7 +8,7 @@ export const timeFormat = (duration: any): string => {
     minutes = Math.floor(time / 60) % 60,
     seconds = Math.floor(time - minutes * 60)
 
-  let str = ''
+  let str = ""
 
   if (hours > 0) str += hours + ":"
 
@@ -23,7 +23,7 @@ export const numberFormat = (num: number): string => {
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "k" },
     { value: 1e6, symbol: "M" },
-    { value: 1e9, symbol: "B" }
+    { value: 1e9, symbol: "B" },
   ]
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
   for (var i = si.length - 1; i > 0; i--) {

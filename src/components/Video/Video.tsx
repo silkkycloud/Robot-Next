@@ -1,25 +1,36 @@
-import React from 'react'
+import React from "react"
 
-import { timeFormat, numberFormat } from '../../functions/format'
+import { timeFormat, numberFormat } from "@/functions/format"
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { HiCheckCircle } from 'react-icons/hi'
+import Image from "next/image"
+import Link from "next/link"
+import { HiCheckCircle } from "react-icons/hi"
 
 export type VideoProps = {
-  url: string,
-  title: string,
-  thumbnail: string,
-  uploaderName: string,
-  uploaderUrl: string,
-  uploaderAvatar: string,
-  uploadedDate: string,
-  duration: number,
-  views: number,
+  url: string
+  title: string
+  thumbnail: string
+  uploaderName: string
+  uploaderUrl: string
+  uploaderAvatar: string
+  uploadedDate: string
+  duration: number
+  views: number
   uploaderVerified: boolean
 }
 
-const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar, uploadedDate, duration, views, uploaderVerified}: VideoProps) => {
+const Video = ({
+  url,
+  title,
+  thumbnail,
+  uploaderName,
+  uploaderUrl,
+  uploaderAvatar,
+  uploadedDate,
+  duration,
+  views,
+  uploaderVerified,
+}: VideoProps) => {
   return (
     <div>
       <div className="space-y-4 cursor-pointer">
@@ -78,7 +89,9 @@ const Video = ({url, title, thumbnail, uploaderName, uploaderUrl, uploaderAvatar
                   <p className="text-sm hover:text-gray-900 dark:hover:text-white">
                     {uploaderName}
                   </p>
-                  {uploaderVerified ? <HiCheckCircle className="ml-1 h-4 w-4" /> : null}
+                  {uploaderVerified ? (
+                    <HiCheckCircle className="ml-1 h-4 w-4" />
+                  ) : null}
                 </div>
               </a>
             </Link>

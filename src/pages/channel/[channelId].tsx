@@ -1,21 +1,22 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import { useChannelApi } from '@/hooks/useApi'
+import React from "react"
+import { useRouter } from "next/router"
+import { useChannelApi } from "@/hooks/useApi"
 
-import { VideoGrid } from '@/components/lib/Grid/Grid'
-import Video from '@/components/Video/Video'
-import LoadingVideos from '@/components/Loading/LoadingVideos'
-import { NextSeo } from 'next-seo'
+import { NextSeo } from "next-seo"
+import Image from "next/image"
+import { VideoGrid } from "@/components/lib/Grid/Grid"
+import Video from "@/components/Video/Video"
+import LoadingVideos from "@/components/Loading/LoadingVideos"
 
-import type { Channel } from '@/types/api'
+import type { Channel } from "@/types/api"
 
 export type ChannelVideosProps = {
   channel: Channel
 }
 
-export const ChannelVideos = ({channel}: ChannelVideosProps): JSX.Element => (
+export const ChannelVideos = ({ channel }: ChannelVideosProps): JSX.Element => (
   <VideoGrid>
-    {channel.relatedStreams != undefined ? channel.relatedStreams.map((video, i: number) => (
+    {channel.relatedStreams.map((video, i: number) => (
       <li key={i.toString()}>
         <Video
           url={video.url}
@@ -30,7 +31,7 @@ export const ChannelVideos = ({channel}: ChannelVideosProps): JSX.Element => (
           uploaderVerified={video.uploaderVerified}
         />
       </li>
-    )) : null}
+    ))}
   </VideoGrid>
 )
 
@@ -38,16 +39,39 @@ const Channel = () => {
   const router = useRouter()
   const { channelId } = router.query
 
-  const [channel, channelLoading] = useChannelApi(channelId, router.isReady)
+  const [channel, channelLoading] = useChannelApi(
+    "/channel/",
+    channelId,
+    router.isReady
+  )
 
   return (
     <>
-      <NextSeo title={`${channel.name} - Piped`} />
-      {channelLoading ? (
-        <LoadingVideos />
-      ) : (
-        <ChannelVideos channel={channel} />
-      )}
+      {channel.name ? <NextSeo title={`${channel.name} - Piped`} /> : null}
+      <div>
+        <div className="space-y-4">
+          {/* Banner */}
+          <div className="aspect-w-3 aspect-h-2">
+            {channel.bannerUrl ? (
+              <Image
+                className="object-cover bg-gray-300 dark:bg-neutral-800"
+                src={channel.bannerUrl}
+                loading="lazy"
+                alt={channel.name}
+                width={2560}
+                height={1440}
+                layout="responsive"
+              />
+            ) : null}
+          </div>
+        </div>
+        {/* Video grid */}
+        {channelLoading ? (
+          <LoadingVideos />
+        ) : (
+          <ChannelVideos channel={channel} />
+        )}
+      </div>
     </>
   )
 }

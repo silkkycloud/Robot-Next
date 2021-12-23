@@ -1,6 +1,10 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from "react"
 
-const fetchApi = async (url: string, setData: Dispatch<SetStateAction<any>>, setLoading: Dispatch<SetStateAction<boolean>>) => {
+const fetchApi = async (
+  url: string,
+  setData: Dispatch<SetStateAction<any>>,
+  setLoading: Dispatch<SetStateAction<boolean>>
+) => {
   try {
     setLoading(true)
     await fetch(url)

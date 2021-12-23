@@ -1,36 +1,46 @@
-import React, { Fragment, useState } from 'react'
-import { useTheme } from 'next-themes'
-import { useSnapshot } from 'valtio'
-import state from 'state'
+import React, { Fragment, useState } from "react"
+import { useTheme } from "next-themes"
+import { useSnapshot } from "valtio"
+import state from "state"
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { Dialog, Transition } from '@headlessui/react'
-import { InternalLink, ExternalLink } from './NavLink'
-import Search from '@/components/Search/Search'
-import { AiFillFire, AiFillHeart, AiFillGithub, AiFillHome, AiOutlineSearch } from 'react-icons/ai'
-import { FaRss } from 'react-icons/fa'
-import { HiOutlineX, HiMenuAlt2 } from 'react-icons/hi'
-import { IoIosSettings } from 'react-icons/io'
-import { MdDarkMode, MdLightMode } from 'react-icons/md'
+import Link from "next/link"
+import Image from "next/image"
+import { Dialog, Transition } from "@headlessui/react"
+import { InternalLink, ExternalLink } from "./NavLink"
+import Search from "@/components/Search/Search"
+import {
+  AiFillFire,
+  AiFillHeart,
+  AiFillGithub,
+  AiFillHome,
+  AiOutlineSearch,
+} from "react-icons/ai"
+import { FaRss } from "react-icons/fa"
+import { HiOutlineX, HiMenuAlt2 } from "react-icons/hi"
+import { IoIosSettings } from "react-icons/io"
+import { MdDarkMode, MdLightMode } from "react-icons/md"
 
 export type NavProps = {
   children?: React.ReactNode
 }
 
-const Nav = ({children}: NavProps): JSX.Element => {
+const Nav = ({ children }: NavProps): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
 
   const snap = useSnapshot(state)
-  const {forcedTheme} = useTheme()
+  const { forcedTheme } = useTheme()
 
   return (
     <>
       <section>
         {/* Dynamic sidebar for mobile */}
         <Transition.Root show={sidebarOpen} as={Fragment}>
-          <Dialog as="div" className="fixed inset-0 flex z-40 md:hidden" onClose={setSidebarOpen}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 flex z-40 md:hidden"
+            onClose={setSidebarOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -68,7 +78,10 @@ const Nav = ({children}: NavProps): JSX.Element => {
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
-                      <HiOutlineX className="h-6 w-6 text-white" aria-hidden="true" />
+                      <HiOutlineX
+                        className="h-6 w-6 text-white"
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
                 </Transition.Child>
@@ -91,30 +104,36 @@ const Nav = ({children}: NavProps): JSX.Element => {
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
                   <nav className="px-2 space-y-1">
-                    {snap.authenticated ? <InternalLink
-                      name="Home"
-                      href="/"
-                      Icon={AiFillHome}
-                      onClick={() => setSidebarOpen(false)}
-                    /> : null}
+                    {snap.authenticated ? (
+                      <InternalLink
+                        name="Home"
+                        href="/"
+                        Icon={AiFillHome}
+                        onClick={() => setSidebarOpen(false)}
+                      />
+                    ) : null}
                     <InternalLink
                       name="Trending"
                       href="/trending"
                       Icon={AiFillFire}
                       onClick={() => setSidebarOpen(false)}
                     />
-                    {snap.authenticated ? <InternalLink
-                      name="Feed"
-                      href="/feed"
-                      Icon={FaRss}
-                      onClick={() => setSidebarOpen(false)}
-                    /> : null}
-                    {snap.authenticated ? <InternalLink
-                      name="Subscriptions"
-                      href="/subscriptions"
-                      Icon={AiFillHeart}
-                      onClick={() => setSidebarOpen(false)}
-                    /> : null}
+                    {snap.authenticated ? (
+                      <InternalLink
+                        name="Feed"
+                        href="/feed"
+                        Icon={FaRss}
+                        onClick={() => setSidebarOpen(false)}
+                      />
+                    ) : null}
+                    {snap.authenticated ? (
+                      <InternalLink
+                        name="Subscriptions"
+                        href="/subscriptions"
+                        Icon={AiFillHeart}
+                        onClick={() => setSidebarOpen(false)}
+                      />
+                    ) : null}
                     <InternalLink
                       name="Settings"
                       href="/settings"
@@ -166,26 +185,24 @@ const Nav = ({children}: NavProps): JSX.Element => {
             </div>
             <div className="mt-5 flex-grow flex flex-col">
               <nav className="flex-1 px-2 pb-4 space-y-1">
-                {snap.authenticated ? <InternalLink
-                  name="Home"
-                  href="/"
-                  Icon={AiFillHome}
-                /> : null}
+                {snap.authenticated ? (
+                  <InternalLink name="Home" href="/" Icon={AiFillHome} />
+                ) : null}
                 <InternalLink
                   name="Trending"
                   href="/trending"
                   Icon={AiFillFire}
                 />
-                {snap.authenticated ? <InternalLink
-                  name="Feed"
-                  href="/feed"
-                  Icon={FaRss}
-                /> : null}
-                {snap.authenticated ? <InternalLink
-                  name="Subscriptions"
-                  href="/subscriptions"
-                  Icon={AiFillHeart}
-                /> : null}
+                {snap.authenticated ? (
+                  <InternalLink name="Feed" href="/feed" Icon={FaRss} />
+                ) : null}
+                {snap.authenticated ? (
+                  <InternalLink
+                    name="Subscriptions"
+                    href="/subscriptions"
+                    Icon={AiFillHeart}
+                  />
+                ) : null}
                 <InternalLink
                   name="Settings"
                   href="/settings"
@@ -233,7 +250,10 @@ const Nav = ({children}: NavProps): JSX.Element => {
                         onClick={() => setSearchOpen(true)}
                       >
                         <span className="sr-only">Open search</span>
-                        <AiOutlineSearch className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-white" aria-hidden="true" />
+                        <AiOutlineSearch
+                          className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500 dark:group-hover:text-white"
+                          aria-hidden="true"
+                        />
                         Search
                       </button>
                     </div>
@@ -244,13 +264,21 @@ const Nav = ({children}: NavProps): JSX.Element => {
                     <button
                       type="button"
                       className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 dark:text-neutral-400 hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-neutral-900 dark:hover:text-white"
-                      onClick={() => state.theme = snap.theme == 'dark' ? 'light' : 'dark'}
+                      onClick={() =>
+                        (state.theme = state.theme == "dark" ? "light" : "dark")
+                      }
                     >
                       <span className="sr-only">Switch theme</span>
-                      {forcedTheme == 'dark' ? (
-                        <MdLightMode className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white" aria-hidden="true" />
+                      {forcedTheme == "dark" ? (
+                        <MdLightMode
+                          className="mr-3 flex-shrink-0 h-6 w-6 text-neutral-400 group-hover:text-white"
+                          aria-hidden="true"
+                        />
                       ) : (
-                        <MdDarkMode className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        <MdDarkMode
+                          className="mr-3 flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
                       )}
                       Theme
                     </button>
@@ -263,19 +291,15 @@ const Nav = ({children}: NavProps): JSX.Element => {
           {/* Primary page content */}
           {children ? (
             <main className="flex-1">
-              <div className="py-6">
-                {children}
-              </div>
+              <div className="py-6">{children}</div>
             </main>
           ) : null}
         </div>
 
         {/* Search */}
-        <Search
-          open={searchOpen}
-          setOpen={setSearchOpen}
-        />
-
+        {searchOpen ? (
+          <Search open={searchOpen} setOpen={setSearchOpen} />
+        ) : null}
       </section>
     </>
   )
