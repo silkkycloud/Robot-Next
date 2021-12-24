@@ -8,7 +8,7 @@ const getInitialState = () => {
 
   return {
     version: '0.1.0',
-    apiUrl: 'https://piped-api.kavin.rocks',
+    apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
     theme: 'light',
     settings: {
