@@ -10,7 +10,7 @@ const Trending = (): JSX.Element => {
   const [trending, trendingLoading] = useFetchTrending('US')
 
   return (
-    <div className="py-6">
+    <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
       <NextSeo title="Trending - Piped" />
       {trendingLoading ? (
         <PlaceholderVideos />

@@ -38,7 +38,7 @@ const Nav = (props: NavProps): JSX.Element => {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-40 md:hidden"
+            className="fixed inset-0 flex z-40 lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -165,7 +165,7 @@ const Nav = (props: NavProps): JSX.Element => {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
           <div className="flex flex-col h-screen flex-grow border-r border-gray-200 dark:border-neutral-900 pt-5 bg-white dark:bg-neutral-800 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
               <Link href="/" passHref>
@@ -228,11 +228,11 @@ const Nav = (props: NavProps): JSX.Element => {
         </div>
 
         {/* Sidebar menu opener and search bar */}
-        <div className="md:pl-64 flex flex-col flex-1">
+        <div className="lg:pl-64 flex flex-col flex-1">
           <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white dark:bg-neutral-800 shadow">
             <button
               type="button"
-              className="px-4 border-r border-gray-200 dark:border-neutral-900 text-gray-500 dark:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-600 md:hidden"
+              className="px-4 border-r border-gray-200 dark:border-neutral-900 text-gray-500 dark:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-600 lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -241,7 +241,7 @@ const Nav = (props: NavProps): JSX.Element => {
             <div className="flex-1 px-4 flex justify-between">
               <div className="flex-1 flex">
                 {/* Search Icon */}
-                <div className="w-full flex md:ml-0">
+                <div className="w-full flex lg:ml-0">
                   <div className="relative w-full">
                     <div className="absolute inset-y-0 left-0 flex items-center">
                       <button

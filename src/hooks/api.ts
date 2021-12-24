@@ -69,10 +69,10 @@ export const useFetchChannel = (
   })
   const [loading, setLoading] = useState(true)
 
-  const allowedPathPrefixes = ['/channel/', '/user/', '/c/']
+  const channelPathPrefixes = ['/channel/', '/user/', '/c/']
 
   useEffect(() => {
-    if (channelId != undefined && allowedPathPrefixes.includes(channelPrefix)) {
+    if (channelId != undefined && channelPathPrefixes.includes(channelPrefix)) {
       axios
         .get(state.apiUrl + channelPrefix + channelId)
         .then((res) => {
