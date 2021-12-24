@@ -21,11 +21,6 @@ const Index = () => {
 
   return (
     <Router>
-      <Head>
-        <title>Piped</title>
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="/__ENV.js" />
-      </Head>
       <DefaultSeo
         title="Piped"
         description="An open-source alternative frontend for YouTube which is efficient by design."
