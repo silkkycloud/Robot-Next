@@ -18,7 +18,7 @@ export interface SearchProps {
 }
 
 const Search = (props: SearchProps): JSX.Element => {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [selected, setSelected] = useState<string>('')
   const [hovered, setHovered] = useState<string>('')
   const [cursor, setCursor] = useState<number>()
@@ -92,7 +92,7 @@ const Search = (props: SearchProps): JSX.Element => {
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
-        className="absolute z-10 inset-x-0 top-0 overflow-y-auto"
+        className="fixed z-10 inset-x-0 top-0 overflow-y-auto"
         onClose={props.setOpen}
       >
         <div className="flex items-end justify-center sm:pt-4 sm:px-4 sm:pb-20 text-center sm:block sm:p-0">

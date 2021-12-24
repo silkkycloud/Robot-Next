@@ -77,7 +77,7 @@ const Channel = (props: ChannelProps): JSX.Element => {
               <div className="bg-gray-100 dark:bg-neutral-800">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="pt-4 pb-4 md:pb-3 flex flex-row items-center relative">
-                    <div className="hidden md:block md:mr-4 md:rounded-full">
+                    <div className="hidden md:block md:mr-5 md:rounded-full">
                       {channel.avatarUrl && channel.name && (
                         <Image
                           className="rounded-full bg-gray-200 dark:bg-neutral-800"
@@ -90,9 +90,9 @@ const Channel = (props: ChannelProps): JSX.Element => {
                         />
                       )}
                     </div>
-                    <div className="leading-6 space-y-1 pr-2">
+                    <div>
                       <div className="flex flex-row items-center">
-                        <h1 className="text-2xl">{channel.name}</h1>
+                        <h1 className="text-2xl font-medium">{channel.name}</h1>
                         {channel.verified && (
                           <HiCheckCircle className="text-gray-600 dark:text-neutral-400 ml-1 h-4 w-4" />
                         )}

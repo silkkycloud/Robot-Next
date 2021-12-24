@@ -1,8 +1,12 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom'
 import { useSnapshot } from 'valtio'
 
-import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
 import Nav from '@/components/Nav/Nav'
@@ -16,11 +20,22 @@ import Feed from '@/components/Feed/Feed'
 import Subscriptions from '@/components/Subscriptions/Subscriptions'
 import Channel from '@/components/Channel/Channel'
 
+export const ScrollToTop = () => {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
+
 const Index = () => {
   const snap = useSnapshot(state)
 
   return (
     <Router>
+      <ScrollToTop />
       <DefaultSeo
         title="Piped"
         description="An open-source alternative frontend for YouTube which is efficient by design."
