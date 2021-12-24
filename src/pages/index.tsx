@@ -26,13 +26,13 @@ const Index = () => {
         description="An open-source alternative frontend for YouTube which is efficient by design."
         openGraph={{
           type: 'website',
-          url: process.env.NEXT_PUBLIC_BASE_URL,
+          url: 'https://piped.silkky.cloud',
           title: 'Piped',
           description:
             'An open-source alternative frontend for YouTube which is efficient by design.',
           images: [
             {
-              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/icons/favicon-32x32.png`,
+              url: 'https://piped.silkky.cloud/images/icons/favicon-32x32.png',
               width: 32,
               height: 32,
               type: 'image/png',

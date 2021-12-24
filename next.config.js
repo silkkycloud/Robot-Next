@@ -9,7 +9,7 @@ module.exports = withPWA({
   },
   reactStrictMode: true,
   images: {
-    domains: [`${process.env.NEXT_PUBLIC_PROXY_HOSTNAME}`],
+    domains: ['proxy.piped.silkky.cloud'],
   },
   async rewrites() {
     return [

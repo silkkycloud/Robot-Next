@@ -8,10 +8,10 @@ const getInitialState = () => {
 
   return {
     version: '0.1.0',
-    apiUrl: `https://${process.env.NEXT_PUBLIC_API_HOSTNAME}`,
+    apiUrl: 'https://api.piped.silkky.cloud',
     authenticated: false,
     authToken: '',
-    theme: process.env.NEXT_PUBLIC_DEFAULT_THEME,
+    theme: 'light',
   }
 }
 
