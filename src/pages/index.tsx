@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useSnapshot } from 'valtio'
 
+import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { ThemeProvider } from 'next-themes'
 import Nav from '@/components/Nav/Nav'
@@ -20,13 +21,28 @@ const Index = () => {
 
   return (
     <Router>
+      <Head>
+        <title>Piped</title>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/__ENV.js" />
+      </Head>
       <DefaultSeo
         title="Piped"
         description="An open-source alternative frontend for YouTube which is efficient by design."
         openGraph={{
+          type: 'website',
+          url: process.env.NEXT_PUBLIC_BASE_URL,
           title: 'Piped',
           description:
             'An open-source alternative frontend for YouTube which is efficient by design.',
+          images: [
+            {
+              url: `${process.env.NEXT_PUBLIC_BASE_URL}/images/icons/favicon-32x32.png`,
+              width: 32,
+              height: 32,
+              type: 'image/png',
+            },
+          ],
         }}
       />
       <ThemeProvider attribute="class" forcedTheme={snap.theme}>

@@ -8,30 +8,10 @@ const getInitialState = () => {
 
   return {
     version: '0.1.0',
-    apiUrl: 'https://api.piped.silkky.cloud',
+    apiUrl: `https://${process.env.NEXT_PUBLIC_API_HOSTNAME}`,
     authenticated: false,
-    theme: 'light',
-    settings: {
-      sponsorBlock: true,
-      skipSponsor: true,
-      skipIntro: false,
-      skipOutro: false,
-      skipPreview: false,
-      skipInteraction: true,
-      skipSelfPromo: true,
-      skipMusicOffTopic: true,
-      autoPlayVideo: true,
-      listen: false,
-      resolutions: [144, 240, 360, 480, 720, 1080, 1440, 2160, 4320],
-      defaultQuality: 0,
-      bufferingGoal: 10,
-      showComments: true,
-      minimizeDescription: false,
-      watchHistory: false,
-      enabledCodecs: ['av1', 'vp9', 'avc'],
-      disableLBRY: false,
-      proxyLBRY: false,
-    },
+    authToken: '',
+    theme: process.env.NEXT_PUBLIC_DEFAULT_THEME,
   }
 }
 
