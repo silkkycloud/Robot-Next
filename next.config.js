@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const withPWA = require('next-pwa')
+
+module.exports = withPWA({
+  pwa: {
+    dest: 'public',
+    register: true,
+  },
   reactStrictMode: true,
   images: {
     domains: ['proxy.piped.silkky.cloud'],
@@ -12,4 +19,4 @@ module.exports = {
       },
     ]
   },
-}
+})
