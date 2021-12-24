@@ -4,9 +4,8 @@ import { timeFormat, numberFormat } from '@/functions/format'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { HiCheckCircle } from 'react-icons/hi'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
-import { PlaceholderVideo } from '@/components/Placeholder/PlaceholderVideos'
+import { HiCheckCircle } from 'react-icons/hi'
 
 export interface VideoProps {
   url: string
@@ -27,31 +26,31 @@ export interface LoadingVideoGridProps {
 
 export const LoadingVideoGrid = (props: LoadingVideoGridProps) => (
   <VideoGrid className={props.className}>
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
-    <PlaceholderVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
+    <LoadingVideo />
   </VideoGrid>
 )
 

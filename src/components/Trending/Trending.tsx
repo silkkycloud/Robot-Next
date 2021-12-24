@@ -2,7 +2,7 @@ import React from 'react'
 import { useFetchTrending } from '@/hooks/api'
 
 import { NextSeo } from 'next-seo'
-import PlaceholderVideos from '@/components/Placeholder/PlaceholderVideos'
+import { LoadingVideoGrid } from '@/components/Video/Video'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import Video from '@/components/Video/Video'
 
@@ -13,7 +13,7 @@ const Trending = (): JSX.Element => {
     <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
       <NextSeo title="Trending - Piped" />
       {trendingLoading ? (
-        <PlaceholderVideos />
+        <LoadingVideoGrid />
       ) : (
         <VideoGrid>
           {trending.map((video, i: number) => (
