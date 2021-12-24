@@ -4,4 +4,12 @@ module.exports = {
   images: {
     domains: ['proxy.piped.silkky.cloud'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:any*',
+        destination: '/',
+      },
+    ]
+  },
 }

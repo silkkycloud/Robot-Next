@@ -3,7 +3,7 @@ import React from 'react'
 import { timeFormat, numberFormat } from '@/functions/format'
 
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import { HiCheckCircle } from 'react-icons/hi'
 
@@ -94,76 +94,65 @@ const Video = (props: VideoProps): JSX.Element => (
   <div className="block">
     <div className="space-y-4 cursor-pointer">
       {/* Thumbnail */}
-      <Link href={props.url} passHref>
-        <a>
-          <div className="aspect-w-3 aspect-h-2">
-            <Image
-              className="object-cover bg-gray-300 dark:bg-neutral-800"
-              src={props.thumbnail}
-              loading="lazy"
-              alt={props.title}
-              width={210}
-              height={118}
-              layout="responsive"
-            />
-            <div className="relative">
-              <div className="absolute bottom-0 right-0 pb-1 pr-1">
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs font-semibold bg-black opacity-80 text-white">
-                  {timeFormat(props.duration)}
-                </span>
-              </div>
+      <Link to={props.url}>
+        <div className="aspect-w-3 aspect-h-2">
+          <Image
+            className="object-cover bg-gray-300 dark:bg-neutral-800"
+            src={props.thumbnail}
+            loading="lazy"
+            alt={props.title}
+            width={210}
+            height={118}
+            layout="responsive"
+          />
+          <div className="relative">
+            <div className="absolute bottom-0 right-0 pb-1 pr-1">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs font-semibold bg-black opacity-80 text-white">
+                {timeFormat(props.duration)}
+              </span>
             </div>
           </div>
-        </a>
+        </div>
       </Link>
 
       {/* Details */}
       <div className="flex flex-row relative">
-        <Link href={props.uploaderUrl} passHref>
-          <a>
-            <div className="block mr-2 rounded-full">
-              <Image
-                className="rounded-full bg-gray-200 dark:bg-neutral-800"
-                src={props.uploaderAvatar}
-                loading="lazy"
-                alt={props.uploaderName}
-                width={36}
-                height={36}
-                layout="fixed"
-              />
-            </div>
-          </a>
+        <Link to={props.uploaderUrl}>
+          <div className="block mr-2 rounded-full">
+            <Image
+              className="rounded-full bg-gray-200 dark:bg-neutral-800"
+              src={props.uploaderAvatar}
+              loading="lazy"
+              alt={props.uploaderName}
+              width={36}
+              height={36}
+              layout="fixed"
+            />
+          </div>
         </Link>
         <div className="leading-6 space-y-1 pr-2">
-          <Link href={props.url} passHref>
-            <a>
-              <h3 className="line-clamp-2 text-black dark:text-white text-sm font-semibold">
-                {props.title}
-              </h3>
-            </a>
+          <Link to={props.url}>
+            <h3 className="line-clamp-2 text-black dark:text-white text-sm font-semibold">
+              {props.title}
+            </h3>
           </Link>
           <div>
-            <Link href={props.uploaderUrl} passHref>
-              <a>
-                <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
-                  <p className="text-xs 2xl:text-sm hover:text-gray-900 dark:hover:text-white">
-                    {props.uploaderName}
-                  </p>
-                  {props.uploaderVerified && (
-                    <HiCheckCircle className="ml-1 h-3 w-3 2xl:h-4 2xl:w-4" />
-                  )}
-                </div>
-              </a>
+            <Link to={props.uploaderUrl}>
+              <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
+                <p className="text-xs 2xl:text-sm hover:text-gray-900 dark:hover:text-white">
+                  {props.uploaderName}
+                </p>
+                {props.uploaderVerified && (
+                  <HiCheckCircle className="ml-1 h-3 w-3 2xl:h-4 2xl:w-4" />
+                )}
+              </div>
             </Link>
-            <Link href={props.url} passHref>
-              <a>
-                <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
-                  <p className="text-xs 2xl:text-sm">
-                    {numberFormat(props.views)} views &#8226;{' '}
-                    {props.uploadedDate}
-                  </p>
-                </div>
-              </a>
+            <Link to={props.url}>
+              <div className="flex flex-row items-center text-gray-600 dark:text-neutral-400">
+                <p className="text-xs 2xl:text-sm">
+                  {numberFormat(props.views)} views &#8226; {props.uploadedDate}
+                </p>
+              </div>
             </Link>
           </div>
         </div>

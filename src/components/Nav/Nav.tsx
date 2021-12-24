@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes'
 import { useSnapshot } from 'valtio'
 import state from 'state'
 
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import { InternalLink, ExternalLink } from './NavLink'
@@ -86,20 +86,18 @@ const Nav = (props: NavProps): JSX.Element => {
                   </div>
                 </Transition.Child>
                 <div className="flex-shrink-0 flex items-center px-4">
-                  <Link href="/" passHref>
-                    <a className="cursor-pointer group flex items-center">
-                      <Image
-                        className="mr-3 flex-shrink-0"
-                        src="/logo.svg"
-                        alt="Piped"
-                        height={50}
-                        width={50}
-                        onClick={() => setSidebarOpen(false)}
-                      />
-                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                        v{snap.version}
-                      </span>
-                    </a>
+                  <Link to="/" className="group flex items-center">
+                    <Image
+                      className="mr-3 flex-shrink-0"
+                      src="/logo.svg"
+                      alt="Piped"
+                      height={50}
+                      width={50}
+                      onClick={() => setSidebarOpen(false)}
+                    />
+                    <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                      v{snap.version}
+                    </span>
                   </Link>
                 </div>
                 <div className="mt-5 flex-grow h-0 overflow-y-auto">
@@ -168,19 +166,17 @@ const Nav = (props: NavProps): JSX.Element => {
         <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
           <div className="flex flex-col h-screen flex-grow border-r border-gray-200 dark:border-neutral-900 pt-5 bg-white dark:bg-neutral-800 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
-              <Link href="/" passHref>
-                <a className="cursor-pointer group flex items-center">
-                  <Image
-                    className="mr-3 flex-shrink-0"
-                    src="/logo.svg"
-                    alt="Piped"
-                    height={50}
-                    width={50}
-                  />
-                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                    v{snap.version}
-                  </span>
-                </a>
+              <Link to="/" className="group flex items-center">
+                <Image
+                  className="mr-3 flex-shrink-0"
+                  src="/logo.svg"
+                  alt="Piped"
+                  height={50}
+                  width={50}
+                />
+                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                  v{snap.version}
+                </span>
               </Link>
             </div>
             <div className="mt-5 flex-grow flex flex-col">

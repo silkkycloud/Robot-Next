@@ -55,7 +55,7 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
 
 export const useFetchChannel = (
   channelPrefix: string,
-  channelId: string | string[] | undefined
+  channelId: string | undefined
 ): [Channel, boolean] => {
   const [data, setData] = useState({
     id: '',

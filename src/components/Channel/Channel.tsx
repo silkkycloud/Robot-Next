@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { useFetchChannel } from '@/hooks/api'
 
 import { NextSeo } from 'next-seo'
@@ -11,49 +12,45 @@ import { HiCheckCircle } from 'react-icons/hi'
 import { numberFormat } from '@/functions/format'
 
 export interface ChannelProps {
-  channelPathPrefix: string
-  channelId: string | string[] | undefined
+  channelPrefix: string
 }
 
 export const LoadingChannel = () => (
   <div className="block md:pb-6 md:py-0">
-    <div>
-      <div className="bg-gray-100 dark:bg-neutral-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="pt-4 pb-4 md:pb-3 flex flex-row items-center relative">
-            <div className="hidden md:block md:mr-4 md:rounded-full">
-              <div
-                className="rounded-full bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
-                style={{
-                  width: '80px',
-                  height: '80px',
-                }}
-              />
+    <div className="bg-gray-100 dark:bg-neutral-800">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-4 pb-4 md:pb-3 flex flex-row items-center relative">
+          <div className="hidden md:block md:mr-4 md:rounded-full">
+            <div
+              className="rounded-full bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
+              style={{
+                width: '80px',
+                height: '80px',
+              }}
+            />
+          </div>
+          <div className="leading-6 space-y-1 pr-2">
+            <div className="flex flex-row items-center">
+              <div className="w-40 h-6 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
             </div>
-            <div className="leading-6 space-y-1 pr-2">
-              <div className="flex flex-row items-center">
-                <div className="w-40 h-6 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
-              </div>
-              <div>
-                <div className="w-20 h-4 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
-              </div>
+            <div>
+              <div className="w-20 h-4 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
             </div>
           </div>
         </div>
       </div>
-      <div className="py-6">
-        {/* Video grid */}
-        <LoadingVideoGrid className="container mx-auto px-4 sm:px-6 lg:px-8" />
-      </div>
+    </div>
+    <div className="py-6">
+      {/* Video grid */}
+      <LoadingVideoGrid className="container mx-auto px-4 sm:px-6 lg:px-8" />
     </div>
   </div>
 )
 
 const Channel = (props: ChannelProps): JSX.Element => {
-  const [channel, channelLoading] = useFetchChannel(
-    props.channelPathPrefix,
-    props.channelId
-  )
+  const { id } = useParams()
+
+  const [channel, channelLoading] = useFetchChannel(props.channelPrefix, id)
 
   return (
     <>
