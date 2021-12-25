@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useFetchChannel } from '@/hooks/api'
+import { useFetchChannel, useFetchChannelNextPage } from '@/hooks/api'
+import useScrollPosition from '@/hooks/useScrollPosition'
 
 import { NextSeo } from 'next-seo'
 import Image from 'next/image'
@@ -49,8 +50,15 @@ export const LoadingChannel = () => (
 
 const Channel = (props: ChannelProps): JSX.Element => {
   const { id } = useParams()
-
   const [channel, channelLoading] = useFetchChannel(props.channelPrefix, id)
+  const [channelNextPage, channelNextPageLoading] = useFetchChannelNextPage(
+    id,
+    channel.nextpage
+  )
+
+  const scrollPosition = useScrollPosition()
+
+  useEffect(() => {}, [channelNextPage, scrollPosition])
 
   return (
     <>

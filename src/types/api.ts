@@ -43,4 +43,20 @@ export type Channel = {
   message?: string
 }
 
+export type ChannelNextPage = {
+  nextpage: string
+  relatedStreams?: {
+    url: string
+    title: string
+    thumbnail: string
+    uploaderName: string
+    uploaderUrl: string
+    uploaderAvatar: null
+    uploadedDate: string
+    duration: number
+    views: number
+    uploaderVerified: boolean
+  }[]
+}
+
 export type Search = {}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Suggestions, Trending, Channel } from '@/types/api'
+import { Suggestions, Trending, Channel, ChannelNextPage } from '@/types/api'
 
 import state from 'state'
 import axios from 'axios'
@@ -84,6 +84,36 @@ export const useFetchChannel = (
         })
     }
   }, [channelPrefix, channelId])
+
+  return [data, loading]
+}
+
+export const useFetchChannelNextPage = (
+  channelId: string | undefined,
+  nextpage: string
+): [ChannelNextPage, boolean] => {
+  const [data, setData] = useState({
+    nextpage: '',
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (channelId != undefined && nextpage != undefined) {
+      axios
+        .get(state.apiUrl + '/nextpage/' + channelId, {
+          params: {
+            nextpage: nextpage,
+          },
+        })
+        .then((res) => {
+          setLoading(false)
+          setData(res.data)
+        })
+        .catch((error) => {
+          console.log(error.toJSON())
+        })
+    }
+  }, [channelId, nextpage])
 
   return [data, loading]
 }
