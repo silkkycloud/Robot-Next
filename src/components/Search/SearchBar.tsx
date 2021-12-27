@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { useNavigate } from 'react-router-dom'
 import classNames from '@/functions/classNames'
 import useKeyPress from '@/hooks/useKeyPress'
 import { useFetchSuggestions } from '@/hooks/api'
@@ -17,9 +18,12 @@ export interface SearchProps {
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Search = (props: SearchProps): JSX.Element => {
-  const [searchQuery, setSearchQuery] = useState<string>('')
+const SearchBar = (props: SearchProps): JSX.Element => {
+  const navigate = useNavigate()
+
   const [selected, setSelected] = useState<string>('')
+  const [query, setQuery] = useState<string>('')
+  const [search, setSearch] = useState<string>('')
   const [hovered, setHovered] = useState<string>('')
   const [cursor, setCursor] = useState<number>()
 
@@ -27,7 +31,7 @@ const Search = (props: SearchProps): JSX.Element => {
   const upPress = useKeyPress('ArrowUp')
   const enterPress = useKeyPress('Enter')
 
-  const suggestions = useFetchSuggestions(searchQuery)
+  const [suggestions] = useFetchSuggestions(query)
 
   useEffect(() => {
     if (suggestions.length && downPress) {
@@ -54,11 +58,19 @@ const Search = (props: SearchProps): JSX.Element => {
       if (cursor != undefined) setSelected(suggestions[cursor])
     }
   }, [enterPress, cursor])
+
   useEffect(() => {
-    if (suggestions.length && hovered) {
-      setCursor(suggestions.indexOf(hovered))
-    }
+    if (cursor != undefined) setSearch(suggestions[cursor])
+  }, [cursor])
+  useEffect(() => {
+    if (suggestions.length && hovered) setCursor(suggestions.indexOf(hovered))
   }, [hovered])
+  useEffect(() => {
+    if (selected != '') {
+      navigate('/search?query=' + selected)
+      props.setOpen(false)
+    }
+  }, [selected])
 
   const suggestionsList: JSX.Element = (
     <ul
@@ -152,14 +164,18 @@ const Search = (props: SearchProps): JSX.Element => {
                   </label>
                   <input
                     type="text"
+                    value={search}
                     name="search"
                     id="search"
                     className="shadow-sm dark:shadow-md bg-white dark:bg-neutral-800 focus:ring-red-600 focus:border-red-600 block w-full sm:text-sm border-gray-300 dark:border-neutral-900 rounded-md"
-                    onChange={(query) => setSearchQuery(query.target.value)}
+                    onChange={(query) => {
+                      setSearch(query.target.value)
+                      setQuery(query.target.value)
+                    }}
                   />
                 </div>
                 <div className="px-2">
-                  {/* Search Suggestions */}
+                  {/* SearchBar Suggestions */}
                   <div className="flex flex-col h-screen sm:h-auto">
                     <div className="bg-white dark:bg-neutral-800 shadow rounded-md">
                       <div>{suggestionsList}</div>
@@ -175,4 +191,4 @@ const Search = (props: SearchProps): JSX.Element => {
   )
 }
 
-export default Search
+export default SearchBar

@@ -5,11 +5,13 @@ import { Suggestions, Trending, Channel, ChannelNextPage } from '@/types/api'
 import state from 'state'
 import axios from 'axios'
 
-export const useFetchSuggestions = (query: string): Suggestions => {
+export const useFetchSuggestions = (query: string): [Suggestions, boolean] => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (query != '') {
+      setLoading(true)
       axios
         .get(state.apiUrl + '/suggestions', {
           params: {
@@ -17,9 +19,11 @@ export const useFetchSuggestions = (query: string): Suggestions => {
           },
         })
         .then((res) => {
+          setLoading(false)
           setData(res.data)
         })
         .catch((error) => {
+          setLoading(false)
           console.log(error.toJSON())
         })
     } else {
@@ -27,7 +31,7 @@ export const useFetchSuggestions = (query: string): Suggestions => {
     }
   }, [query])
 
-  return data
+  return [data, loading]
 }
 
 export const useFetchTrending = (region: string): [Trending, boolean] => {

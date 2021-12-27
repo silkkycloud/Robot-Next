@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import { InternalLink, ExternalLink } from './NavLink'
-import Search from '@/components/Search/Search'
+import SearchBar from '@/components/Search/SearchBar'
 import {
   AiFillFire,
   AiFillHeart,
@@ -236,7 +236,7 @@ const Nav = (props: NavProps): JSX.Element => {
             </button>
             <div className="flex-1 px-4 flex justify-between">
               <div className="flex-1 flex">
-                {/* Search Icon */}
+                {/* SearchBar Icon */}
                 <div className="w-full flex lg:ml-0">
                   <div className="relative w-full">
                     <div className="absolute inset-y-0 left-0 flex items-center">
@@ -292,8 +292,8 @@ const Nav = (props: NavProps): JSX.Element => {
           )}
         </div>
 
-        {/* Search */}
-        <Search open={searchOpen} setOpen={setSearchOpen} />
+        {/* SearchBar */}
+        <SearchBar open={searchOpen} setOpen={setSearchOpen} />
       </section>
     </>
   )
