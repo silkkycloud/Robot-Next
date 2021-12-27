@@ -85,6 +85,53 @@ export const useFetchSearch = (
   return [data, loading]
 }
 
+export const useFetchSearchNextPage = (
+  query: string | null,
+  filter: string,
+  nextpage: string
+): [Search, boolean] => {
+  const [data, setData] = useState<Search>({
+    nextpage: '',
+    corrected: false,
+  })
+  const [loading, setLoading] = useState(true)
+
+  const searchFilters = [
+    'all',
+    'videos',
+    'channels',
+    'playlists',
+    'music_songs',
+    'music_videos',
+    'music_albums',
+    'music_playlists',
+  ]
+
+  useEffect(() => {
+    if (query != null && nextpage != '' && searchFilters.includes(filter)) {
+      setLoading(true)
+      axios
+        .get(state.apiUrl + '/nextpage/search', {
+          params: {
+            nextpage: nextpage,
+            q: query,
+            filter: filter,
+          },
+        })
+        .then((res) => {
+          setLoading(false)
+          setData(res.data)
+        })
+        .catch((error) => {
+          setLoading(false)
+          console.log(error.toJSON())
+        })
+    }
+  }, [query, filter, nextpage])
+
+  return [data, loading]
+}
+
 export const useFetchTrending = (region: string): [Trending, boolean] => {
   const [data, setData] = useState<Trending>([])
   const [loading, setLoading] = useState(true)
