@@ -138,13 +138,15 @@ const Channel = (props: ChannelProps): JSX.Element => {
                     </div>
                   </div>
                   <div className="pb-4 md:pb-3">
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(
-                          urlify(channelState.description)
-                        ),
-                      }}
-                    />
+                    <p className="whitespace-pre-wrap">
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(
+                            urlify(channelState.description)
+                          ),
+                        }}
+                      />
+                    </p>
                   </div>
                 </div>
               </div>
