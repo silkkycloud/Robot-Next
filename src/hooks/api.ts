@@ -47,6 +47,7 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
         setData(res.data)
       })
       .catch((error) => {
+        setLoading(false)
         console.log(error.toJSON())
       })
   }, [])
@@ -82,6 +83,7 @@ export const useFetchChannel = (
           setData(res.data)
         })
         .catch((error) => {
+          setLoading(false)
           console.log(error.toJSON())
         })
     }
@@ -100,7 +102,7 @@ export const useFetchChannelNextPage = (
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (channelId != undefined && nextpage != undefined) {
+    if (channelId != undefined && nextpage != '') {
       setLoading(true)
       axios
         .get(state.apiUrl + '/nextpage/channel/' + channelId, {
@@ -113,6 +115,7 @@ export const useFetchChannelNextPage = (
           setData(res.data)
         })
         .catch((error) => {
+          setLoading(false)
           console.log(error.toJSON())
         })
     }

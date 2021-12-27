@@ -53,6 +53,7 @@ export const LoadingChannel = () => (
 
 const Channel = (props: ChannelProps): JSX.Element => {
   const { id } = useParams()
+
   const [channel, channelLoading] = useFetchChannel(props.channelPrefix, id)
   const [channelState, setChannelState] = useState(channel)
   const [channelNextPage, channelNextPageLoading] = useFetchChannelNextPage(
