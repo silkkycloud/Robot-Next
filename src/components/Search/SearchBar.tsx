@@ -56,7 +56,10 @@ const SearchBar = (props: SearchProps): JSX.Element => {
   useEffect(() => {
     if (suggestions.length && enterPress) {
       if (cursor != undefined) setSelected(suggestions[cursor])
+      else setSelected(search)
     }
+
+    return () => setSelected('')
   }, [enterPress, cursor])
 
   useEffect(() => {
@@ -64,10 +67,12 @@ const SearchBar = (props: SearchProps): JSX.Element => {
   }, [cursor])
   useEffect(() => {
     if (suggestions.length && hovered) setCursor(suggestions.indexOf(hovered))
+
+    return () => setCursor(undefined)
   }, [hovered])
   useEffect(() => {
     if (selected != '') {
-      navigate('/search?query=' + selected)
+      navigate('/search?q=' + selected)
       props.setOpen(false)
     }
   }, [selected])

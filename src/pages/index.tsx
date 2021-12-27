@@ -20,6 +20,7 @@ import Settings from '@/components/Settings/Settings'
 import Feed from '@/components/Feed/Feed'
 import Subscriptions from '@/components/Subscriptions/Subscriptions'
 import Channel from '@/components/Channel/Channel'
+import Search from '@/components/Search/Search'
 
 export const NotFound = () => (
   <div className="bg-white dark:bg-neutral-900 min-h-full px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
@@ -94,6 +95,7 @@ const Index = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/c/:id/*" element={<Channel channelPrefix="/c/" />} />
             <Route
               path="/channel/:id/*"

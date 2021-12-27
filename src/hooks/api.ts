@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react'
 
-import { Suggestions, Trending, Channel, ChannelNextPage } from '@/types/api'
+import {
+  Suggestions,
+  Search,
+  Trending,
+  Channel,
+  ChannelNextPage,
+} from '@/types/api'
 
 import state from 'state'
 import axios from 'axios'
 
 export const useFetchSuggestions = (query: string): [Suggestions, boolean] => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Suggestions>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -34,8 +40,53 @@ export const useFetchSuggestions = (query: string): [Suggestions, boolean] => {
   return [data, loading]
 }
 
+export const useFetchSearch = (
+  query: string | null,
+  filter: string
+): [Search, boolean] => {
+  const [data, setData] = useState<Search>({
+    nextpage: '',
+    corrected: false,
+  })
+  const [loading, setLoading] = useState(true)
+
+  const searchFilters = [
+    'all',
+    'videos',
+    'channels',
+    'playlists',
+    'music_songs',
+    'music_videos',
+    'music_albums',
+    'music_playlists',
+  ]
+
+  useEffect(() => {
+    if (query != null && searchFilters.includes(filter)) {
+      setLoading(true)
+      axios
+        .get(state.apiUrl + '/search', {
+          params: {
+            q: query,
+            filter: filter,
+          },
+        })
+        .then((res) => {
+          setLoading(false)
+          setData(res.data)
+        })
+        .catch((error) => {
+          setLoading(false)
+          console.log(error.toJSON())
+        })
+    }
+  }, [query, filter])
+
+  return [data, loading]
+}
+
 export const useFetchTrending = (region: string): [Trending, boolean] => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Trending>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -63,7 +114,7 @@ export const useFetchChannel = (
   channelPrefix: string,
   channelId: string | undefined
 ): [Channel, boolean] => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<Channel>({
     id: '',
     name: '',
     avatarUrl: '',
@@ -100,7 +151,7 @@ export const useFetchChannelNextPage = (
   channelId: string | undefined,
   nextpage: string
 ): [ChannelNextPage, boolean] => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<ChannelNextPage>({
     nextpage: '',
   })
   const [loading, setLoading] = useState(true)
