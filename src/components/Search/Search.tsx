@@ -43,47 +43,45 @@ const Search = () => {
   }, [search])
 
   return (
-    <>
+    <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
       <NextSeo title="Search - Piped" />
-      <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
-        {searchLoading ? (
-          <LoadingVideoGrid />
-        ) : (
-          <div>
-            {searchState.items && (
-              <VideoGrid>
-                {searchState.items.map((item, i: number) => (
-                  <li key={i.toString()}>
-                    {/* Check if item is a Video, Channel or Playlist */}
-                    {item.title && (
-                      <Video
-                        url={item.url}
-                        title={item.title}
-                        thumbnail={item.thumbnail}
-                        uploaderName={item.uploaderName}
-                        uploaderUrl={item.uploaderUrl}
-                        uploaderAvatar={item.uploaderAvatar}
-                        uploadedDate={item.uploadedDate}
-                        duration={item.duration}
-                        views={item.views}
-                        uploaderVerified={item.uploaderVerified}
-                      />
-                    )}
-                    {item.name && <div>{item.name}</div>}
-                    {item.name && item.uploaderName && <div>{item.name}</div>}
-                  </li>
-                ))}
-              </VideoGrid>
-            )}
-            {searchNextPageLoading && (
-              <div className="py-6 flex justify-center">
-                <Spinner className="h-10 w-10" />
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </>
+      {searchLoading ? (
+        <LoadingVideoGrid />
+      ) : (
+        <>
+          {searchState.items && (
+            <VideoGrid>
+              {searchState.items.map((item, i: number) => (
+                <li key={i.toString()}>
+                  {/* Check if item is a Video, Channel or Playlist */}
+                  {item.title && (
+                    <Video
+                      url={item.url}
+                      title={item.title}
+                      thumbnail={item.thumbnail}
+                      uploaderName={item.uploaderName}
+                      uploaderUrl={item.uploaderUrl}
+                      uploaderAvatar={item.uploaderAvatar}
+                      uploadedDate={item.uploadedDate}
+                      duration={item.duration}
+                      views={item.views}
+                      uploaderVerified={item.uploaderVerified}
+                    />
+                  )}
+                  {item.name && <div>{item.name}</div>}
+                  {item.name && item.uploaderName && <div>{item.name}</div>}
+                </li>
+              ))}
+            </VideoGrid>
+          )}
+          {searchNextPageLoading && (
+            <div className="py-6 flex justify-center">
+              <Spinner className="h-10 w-10" />
+            </div>
+          )}
+        </>
+      )}
+    </div>
   )
 }
 
