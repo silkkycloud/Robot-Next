@@ -100,7 +100,7 @@ export const useFetchChannelNextPage = (
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (channelId && nextpage) {
+    if (channelId != undefined && nextpage != undefined) {
       setLoading(true)
       axios
         .get(state.apiUrl + '/nextpage/channel/' + channelId, {

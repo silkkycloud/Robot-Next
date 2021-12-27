@@ -11,7 +11,9 @@ import { LoadingVideoGrid } from '@/components/Video/Video'
 import Spinner from '@/components/ui/Loading/Spinner'
 import { HiCheckCircle } from 'react-icons/hi'
 
+import DOMPurify from 'dompurify'
 import { numberFormat } from '@/functions/format'
+import urlify from '@/functions/urlify'
 
 export interface ChannelProps {
   channelPrefix: string
@@ -134,6 +136,15 @@ const Channel = (props: ChannelProps): JSX.Element => {
                         </p>
                       </div>
                     </div>
+                  </div>
+                  <div className="pb-4 md:pb-3">
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          urlify(channelState.description)
+                        ),
+                      }}
+                    />
                   </div>
                 </div>
               </div>
