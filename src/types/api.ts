@@ -17,7 +17,7 @@ export type Search = {
     uploadedDate: string
     duration: number
     subscribers: number
-    videos: null
+    videos: number
     views: number
     verified: boolean
     uploaderVerified: boolean

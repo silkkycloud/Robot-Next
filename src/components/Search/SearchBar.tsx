@@ -54,7 +54,7 @@ const SearchBar = (props: SearchProps): JSX.Element => {
     }
   }, [upPress])
   useEffect(() => {
-    if (suggestions.length && enterPress) {
+    if (enterPress) {
       if (cursor != undefined) setSelected(suggestions[cursor])
       else setSelected(search)
     }

@@ -5,6 +5,9 @@ import useScrollPosition from '@/hooks/useScrollPosition'
 
 import { NextSeo } from 'next-seo'
 import Video, { LoadingVideoGrid } from '@/components/Video/Video'
+import ChannelItem from '@/components/Channel/ChannelItem'
+import PlaylistItem from '@/components/Playlist/PlaylistItem'
+import Menu from '@/components/ui/Menu/Menu'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import Spinner from '@/components/ui/Loading/Spinner'
 
@@ -12,11 +15,12 @@ const Search = () => {
   const [searchParams] = useSearchParams()
   const query = searchParams.get('q')
 
-  const [search, searchLoading] = useFetchSearch(query, 'all')
+  const [selectedFilter, setSelectedFilter] = useState({ id: 0, name: 'all' })
+  const [search, searchLoading] = useFetchSearch(query, selectedFilter.name)
   const [searchState, setSearchState] = useState(search)
   const [searchNextPage, searchNextPageLoading] = useFetchSearchNextPage(
     query,
-    'all',
+    selectedFilter.name,
     searchState.nextpage
   )
   const scrollPosition = useScrollPosition()
@@ -43,45 +47,88 @@ const Search = () => {
   }, [search])
 
   return (
-    <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
+    <>
       <NextSeo title="Search - Piped" />
-      {searchLoading ? (
-        <LoadingVideoGrid />
-      ) : (
-        <>
-          {searchState.items && (
-            <VideoGrid>
-              {searchState.items.map((item, i: number) => (
-                <li key={i.toString()}>
-                  {/* Check if item is a Video, Channel or Playlist */}
-                  {item.title && (
-                    <Video
-                      url={item.url}
-                      title={item.title}
-                      thumbnail={item.thumbnail}
-                      uploaderName={item.uploaderName}
-                      uploaderUrl={item.uploaderUrl}
-                      uploaderAvatar={item.uploaderAvatar}
-                      uploadedDate={item.uploadedDate}
-                      duration={item.duration}
-                      views={item.views}
-                      uploaderVerified={item.uploaderVerified}
-                    />
-                  )}
-                  {item.name && <div>{item.name}</div>}
-                  {item.name && item.uploaderName && <div>{item.name}</div>}
-                </li>
-              ))}
-            </VideoGrid>
-          )}
-          {searchNextPageLoading && (
-            <div className="py-6 flex justify-center">
-              <Spinner className="h-10 w-10" />
-            </div>
-          )}
-        </>
-      )}
-    </div>
+
+      <div className="bg-gray-100 dark:bg-neutral-800">
+        <div className="py-6 px-4 sm:px-6 lg:px-8">
+          <div className="w-full sm:max-w-xs">
+            <Menu
+              selected={selectedFilter}
+              setSelected={setSelectedFilter}
+              listName="Filter"
+              listItems={[
+                { id: 0, name: 'all' },
+                { id: 1, name: 'videos' },
+                { id: 2, name: 'channels' },
+                { id: 3, name: 'playlists' },
+                { id: 4, name: 'music_songs' },
+                { id: 5, name: 'music_videos' },
+                { id: 6, name: 'music_albums' },
+                { id: 7, name: 'music_playlists' },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="py-6 mx-auto px-4 sm:px-6 lg:px-8">
+        {searchLoading ? (
+          <LoadingVideoGrid />
+        ) : (
+          <>
+            {searchState.items && (
+              <VideoGrid>
+                {searchState.items.map((item, i: number) => (
+                  <li key={i.toString()}>
+                    {/* Check if item is a Video, Channel or Playlist */}
+                    {item.title && (
+                      <Video
+                        url={item.url}
+                        title={item.title}
+                        thumbnail={item.thumbnail}
+                        uploaderName={item.uploaderName}
+                        uploaderUrl={item.uploaderUrl}
+                        uploaderAvatar={item.uploaderAvatar}
+                        uploadedDate={item.uploadedDate}
+                        duration={item.duration}
+                        views={item.views}
+                        uploaderVerified={item.uploaderVerified}
+                      />
+                    )}
+                    {item.name && (
+                      <ChannelItem
+                        name={item.name}
+                        thumbnail={item.thumbnail}
+                        url={item.url}
+                        description={item.description}
+                        subscribers={item.subscribers}
+                        videos={item.videos}
+                        verified={item.verified}
+                      />
+                    )}
+                    {item.name && item.uploaderName && (
+                      <PlaylistItem
+                        name={item.name}
+                        thumbnail={item.thumbnail}
+                        url={item.url}
+                        uploaderName={item.uploaderName}
+                        videos={item.videos}
+                      />
+                    )}
+                  </li>
+                ))}
+              </VideoGrid>
+            )}
+            {searchNextPageLoading && (
+              <div className="py-6 flex justify-center">
+                <Spinner className="h-10 w-10" />
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </>
   )
 }
 
