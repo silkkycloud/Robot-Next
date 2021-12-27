@@ -11,8 +11,8 @@ import { LoadingVideoGrid } from '@/components/Video/Video'
 import Spinner from '@/components/ui/Loading/Spinner'
 import { HiCheckCircle } from 'react-icons/hi'
 
-import DOMPurify from 'dompurify'
 import { numberFormat } from '@/functions/format'
+import { purifyHTML } from '@/functions/purify'
 import urlify from '@/functions/urlify'
 
 export interface ChannelProps {
@@ -141,9 +141,7 @@ const Channel = (props: ChannelProps): JSX.Element => {
                     <p className="whitespace-pre-wrap">
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: DOMPurify.sanitize(
-                            urlify(channelState.description)
-                          ),
+                          __html: purifyHTML(urlify(channelState.description)),
                         }}
                       />
                     </p>
