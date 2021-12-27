@@ -60,7 +60,7 @@ export const LoadingVideo = (): JSX.Element => (
       {/* Thumbnail */}
       <div className="aspect-w-3 aspect-h-2">
         <Image
-          className="object-cover bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
+          className="object-cover animate-pulse bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
           src="/images/thumbnail.svg"
           loading="lazy"
           alt=""
@@ -74,7 +74,7 @@ export const LoadingVideo = (): JSX.Element => (
       <div className="flex flex-row relative">
         <div className="block mr-2 rounded-full">
           <div
-            className="rounded-full bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
+            className="rounded-full animate-pulse bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700"
             style={{
               width: '36px',
               height: '36px',
@@ -82,8 +82,8 @@ export const LoadingVideo = (): JSX.Element => (
           />
         </div>
         <div className="leading-6 space-y-1 pr-2">
-          <div className="w-40 h-6 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
-          <div className="w-28 h-6 rounded-sm bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
+          <div className="w-40 h-6 rounded-sm animate-pulse bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
+          <div className="w-28 h-6 rounded-sm animate-pulse bg-gradient-to-r from-gray-300 to-gray-200 dark:from-neutral-800 dark:to-neutral-700" />
         </div>
       </div>
     </div>

@@ -35,6 +35,7 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(state.apiUrl + '/trending', {
         params: {
@@ -73,6 +74,7 @@ export const useFetchChannel = (
 
   useEffect(() => {
     if (channelId != undefined && channelPathPrefixes.includes(channelPrefix)) {
+      setLoading(true)
       axios
         .get(state.apiUrl + channelPrefix + channelId)
         .then((res) => {
@@ -98,9 +100,10 @@ export const useFetchChannelNextPage = (
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (channelId != undefined && nextpage != undefined) {
+    if (channelId && nextpage) {
+      setLoading(true)
       axios
-        .get(state.apiUrl + '/nextpage/' + channelId, {
+        .get(state.apiUrl + '/nextpage/channel/' + channelId, {
           params: {
             nextpage: nextpage,
           },
