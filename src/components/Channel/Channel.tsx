@@ -18,8 +18,6 @@ import { Channel } from '@/types/api'
 
 import axios from 'axios'
 import state from '../../state'
-import { is } from '@babel/types'
-import { ifError } from 'assert'
 
 export const useFetchChannel = (
   channelPrefix: string,
