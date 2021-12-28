@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { NextSeo } from 'next-seo'
@@ -16,52 +16,58 @@ import state from '../../state'
 export const useFetchSearch = (
   query: string | null,
   filter: string
-): [Search, boolean] => {
+): [Search, Dispatch<SetStateAction<Search>>, boolean] => {
   const [data, setData] = useState<Search>({
     nextpage: '',
     corrected: false,
   })
   const [loading, setLoading] = useState(false)
 
-  const searchFilters = [
-    'all',
-    'videos',
-    'channels',
-    'playlists',
-    'music_songs',
-    'music_videos',
-    'music_albums',
-    'music_playlists',
-  ]
-
   useEffect(() => {
-    let ignore = false
-    const fetchSearchResults = async () => {
+    let isMounted = true
+
+    const ac = new AbortController()
+
+    const fetchSearchResults = () => {
+      const searchFilters = [
+        'all',
+        'videos',
+        'channels',
+        'playlists',
+        'music_songs',
+        'music_videos',
+        'music_albums',
+        'music_playlists',
+      ]
       if (query != null && searchFilters.includes(filter)) {
-        try {
-          setLoading(true)
-          const request = await axios.get(state.apiUrl + '/search', {
+        setLoading(true)
+        axios
+          .get(state.apiUrl + '/search', {
+            signal: ac.signal,
             params: {
               q: query,
               filter: filter,
             },
           })
-          if (!ignore) setData(request.data)
-          setLoading(false)
-        } catch (error) {
-          setLoading(false)
-          console.error(error)
-        }
+          .then((res) => {
+            if (isMounted) setData(res.data)
+            setLoading(false)
+          })
+          .catch((error) => {
+            setLoading(false)
+            console.log(error)
+          })
       }
     }
 
     fetchSearchResults()
     return () => {
-      ignore = true
+      ac.abort()
+      isMounted = false
     }
   }, [query, filter])
 
-  return [data, loading]
+  return [data, setData, loading]
 }
 
 export const SearchMenu = () => <div></div>
@@ -71,7 +77,7 @@ export const Result = (props: Search) => <div></div>
 const Search = () => {
   const [searchParams] = useSearchParams()
   const [selectedFilter, setSelectedFilter] = useState({ id: 0, name: 'all' })
-  const [results, resultsLoading] = useFetchSearch(
+  const [results, setResults, resultsLoading] = useFetchSearch(
     searchParams.get('q'),
     selectedFilter.name
   )

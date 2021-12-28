@@ -15,29 +15,35 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let ignore = false
+    let isMounted = true
 
-    const fetchTrending = async () => {
-      try {
-        setLoading(true)
-        const request = await axios.get(state.apiUrl + '/trending', {
+    const ac = new AbortController()
+
+    const fetchTrending = () => {
+      setLoading(true)
+      axios
+        .get(state.apiUrl + '/trending', {
+          signal: ac.signal,
           params: {
             region: region,
           },
         })
-        if (!ignore) setData(request.data)
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-        console.error(error)
-      }
+        .then((res) => {
+          if (isMounted) setData(res.data)
+          setLoading(false)
+        })
+        .catch((error) => {
+          setLoading(false)
+          console.log(error)
+        })
     }
 
     fetchTrending()
     return () => {
-      ignore = true
+      ac.abort()
+      isMounted = false
     }
-  }, [])
+  }, [region])
 
   return [data, loading]
 }

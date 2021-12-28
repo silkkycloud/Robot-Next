@@ -42,7 +42,7 @@ const SearchBar = (props: SearchProps): JSX.Element => {
         else setCursor(0)
       })
     }
-  }, [downPress])
+  }, [downPress, suggestions.length])
   useEffect(() => {
     if (suggestions.length && upPress) {
       setCursor((prevState) => {
@@ -52,7 +52,7 @@ const SearchBar = (props: SearchProps): JSX.Element => {
         else setCursor(0)
       })
     }
-  }, [upPress])
+  }, [suggestions.length, upPress])
   useEffect(() => {
     if (enterPress) {
       if (cursor != undefined) setSelected(suggestions[cursor])
@@ -60,22 +60,22 @@ const SearchBar = (props: SearchProps): JSX.Element => {
     }
 
     return () => setSelected('')
-  }, [enterPress, cursor])
+  }, [enterPress, cursor, suggestions, search])
 
   useEffect(() => {
     if (cursor != undefined) setSearch(suggestions[cursor])
-  }, [cursor])
+  }, [cursor, suggestions])
   useEffect(() => {
     if (suggestions.length && hovered) setCursor(suggestions.indexOf(hovered))
 
     return () => setCursor(undefined)
-  }, [hovered])
+  }, [hovered, suggestions])
   useEffect(() => {
     if (selected != '') {
       navigate('/search?q=' + selected)
       props.setOpen(false)
     }
-  }, [selected])
+  }, [navigate, props, selected])
 
   const suggestionsList: JSX.Element = (
     <ul

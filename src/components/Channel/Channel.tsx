@@ -195,6 +195,9 @@ const ChannelPage = (props: ChannelPageProps) => {
 
   const [nextPageLoading, setNextPageLoading] = useState(false)
   const scrollPosition = useScrollPosition()
+  const mountPosition =
+    window.innerHeight + scrollPosition >=
+    document.body.offsetHeight - window.innerHeight
 
   useEffect(() => {
     let isMounted = true
@@ -202,7 +205,7 @@ const ChannelPage = (props: ChannelPageProps) => {
     const ac = new AbortController()
 
     const fetchNextPage = () => {
-      if (channel.id && channel.nextpage && channel.relatedStreams) {
+      if (channel.relatedStreams && channel.nextpage && channel.id) {
         setNextPageLoading(true)
         axios
           .get(state.apiUrl + '/nextpage/channel/' + channel.id, {
@@ -232,20 +235,21 @@ const ChannelPage = (props: ChannelPageProps) => {
       }
     }
 
-    if (!channelLoading && !nextPageLoading) {
-      if (
-        window.innerHeight + scrollPosition >=
-        document.body.offsetHeight - window.innerHeight
-      ) {
-        fetchNextPage()
-      }
+    if (mountPosition) {
+      fetchNextPage()
     }
 
     return () => {
       ac.abort()
       isMounted = false
     }
-  }, [scrollPosition, channel])
+  }, [
+    mountPosition,
+    channel.relatedStreams,
+    channel.id,
+    channel.nextpage,
+    setChannel,
+  ])
 
   return (
     <>
