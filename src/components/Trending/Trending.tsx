@@ -4,11 +4,12 @@ import { NextSeo } from 'next-seo'
 import { LoadingVideoGrid } from '@/components/Video/Video'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import Video from '@/components/Video/Video'
+import Error from '@/components/Error/Error'
 
 import { Trending } from '@/types/api'
 
 import axios from 'axios'
-import state from '../../state'
+import state from 'state'
 
 export const useFetchTrending = (region: string): [Trending, boolean] => {
   const [data, setData] = useState<Trending>([])

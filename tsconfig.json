@@ -5,7 +5,7 @@
       "@/*": [""],
       "@/pages/*": ["pages/*"],
       "@/components/*": ["components/*"],
-      "@/lib/*": ["components/lib/*"],
+      "@/ui/*": ["components/ui/*"],
       "@/functions/*": ["functions/*"],
       "@/hooks/*": ["hooks/*"],
       "@/types/*": ["types/*"]

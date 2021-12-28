@@ -17,7 +17,7 @@ import urlify from '@/functions/urlify'
 import { Channel } from '@/types/api'
 
 import axios from 'axios'
-import state from '../../state'
+import state from 'state'
 
 export const useFetchChannel = (
   channelPrefix: string,
@@ -247,10 +247,7 @@ const ChannelPage = (props: ChannelPageProps) => {
       }
     }
 
-    if (mountPosition) {
-      fetchNextPage()
-    }
-
+    if (mountPosition) fetchNextPage()
     return () => {
       ac.abort()
       isMounted = false

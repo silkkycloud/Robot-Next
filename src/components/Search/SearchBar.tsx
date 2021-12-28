@@ -8,17 +8,66 @@ import React, {
 import { useNavigate } from 'react-router-dom'
 import classNames from '@/functions/classNames'
 import useKeyPress from '@/hooks/useKeyPress'
-import { useFetchSuggestions } from '@/hooks/api'
 
 import { Dialog, Transition } from '@headlessui/react'
 import { HiX } from 'react-icons/hi'
 
-export interface SearchProps {
+import { Suggestions } from '@/types/api'
+
+import state from 'state'
+import axios from 'axios'
+
+export const useFetchSuggestions = (query: string): [Suggestions, boolean] => {
+  const [data, setData] = useState<Suggestions>([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let isMounted = true
+
+    const ac = new AbortController()
+
+    const fetchSuggestions = () => {
+      if (isMounted) setLoading(true)
+      axios
+        .get(state.apiUrl + '/suggestions', {
+          signal: ac.signal,
+          params: {
+            query: query,
+          },
+        })
+        .then((res) => {
+          if (isMounted) {
+            setData(res.data)
+            setLoading(false)
+          }
+        })
+        .catch((error) => {
+          if (isMounted) setLoading(false)
+          console.log(error)
+        })
+    }
+
+    if (query != '') fetchSuggestions()
+    else setData([])
+    return () => {
+      ac.abort()
+      isMounted = false
+    }
+  }, [query])
+
+  return [data, loading]
+}
+
+const Suggestions = () => {
+  return <div></div>
+}
+
+export interface SearchBarProps {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const SearchBar = (props: SearchProps): JSX.Element => {
+const SearchBar = (props: SearchBarProps) => {
   const navigate = useNavigate()
 
   const [selected, setSelected] = useState<string>('')
@@ -31,7 +80,7 @@ const SearchBar = (props: SearchProps): JSX.Element => {
   const upPress = useKeyPress('ArrowUp')
   const enterPress = useKeyPress('Enter')
 
-  const [suggestions] = useFetchSuggestions(query)
+  const [suggestions, suggestionsLoading] = useFetchSuggestions(query)
 
   useEffect(() => {
     if (suggestions.length && downPress) {
