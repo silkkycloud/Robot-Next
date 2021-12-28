@@ -46,17 +46,19 @@ export const useFetchChannel = (
         channelId != undefined &&
         channelPathPrefixes.includes(channelPrefix)
       ) {
-        setLoading(true)
+        if (isMounted) setLoading(true)
         axios
           .get(state.apiUrl + channelPrefix + channelId, {
             signal: ac.signal,
           })
           .then((res) => {
-            if (isMounted) setData(res.data)
-            setLoading(false)
+            if (isMounted) {
+              setData(res.data)
+              setLoading(false)
+            }
           })
           .catch((error) => {
-            setLoading(false)
+            if (isMounted) setLoading(false)
             console.log(error)
           })
       }
