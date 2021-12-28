@@ -64,6 +64,10 @@ export const useFetchSearch = (
   return [data, loading]
 }
 
+export const SearchMenu = () => <div></div>
+
+export const Result = (props: Search) => <div></div>
+
 const Search = () => {
   const [searchParams] = useSearchParams()
   const [selectedFilter, setSelectedFilter] = useState({ id: 0, name: 'all' })

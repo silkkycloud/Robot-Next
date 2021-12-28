@@ -1,6 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "plugin:valtio/recommended", "prettier"],
   "rules": {
+    "react-hooks/exhaustive-deps": "off",
     "valtio/state-snapshot-rule": "warn",
     "valtio/avoid-this-in-proxy": "warn"
   }

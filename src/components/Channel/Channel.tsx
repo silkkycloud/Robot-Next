@@ -35,31 +35,36 @@ export const useFetchChannel = (
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    let ignore = false
+    let isMounted = true
 
-    const fetchChannel = async () => {
+    const ac = new AbortController()
+
+    const fetchChannel = () => {
       const channelPathPrefixes = ['/channel/', '/user/', '/c/']
       if (
         channelId != undefined &&
         channelPathPrefixes.includes(channelPrefix)
       ) {
-        try {
-          setLoading(true)
-          const request = await axios.get(
-            state.apiUrl + channelPrefix + channelId
-          )
-          if (!ignore) setData(request.data)
-          setLoading(false)
-        } catch (error) {
-          setLoading(false)
-          console.error(error)
-        }
+        setLoading(true)
+        axios
+          .get(state.apiUrl + channelPrefix + channelId, {
+            signal: ac.signal,
+          })
+          .then((res) => {
+            if (isMounted) setData(res.data)
+            setLoading(false)
+          })
+          .catch((error) => {
+            setLoading(false)
+            console.log(error)
+          })
       }
     }
 
     fetchChannel()
     return () => {
-      let ignore = true
+      ac.abort()
+      isMounted = false
     }
   }, [channelPrefix, channelId])
 
@@ -192,35 +197,38 @@ const ChannelPage = (props: ChannelPageProps) => {
   const scrollPosition = useScrollPosition()
 
   useEffect(() => {
-    let ignore = false
+    let isMounted = true
 
-    const fetchNextPage = async () => {
+    const ac = new AbortController()
+
+    const fetchNextPage = () => {
       if (channel.id && channel.nextpage && channel.relatedStreams) {
-        try {
-          setNextPageLoading(true)
-          const request = await axios.get(
-            state.apiUrl + '/nextpage/channel/' + channel.id,
-            {
-              params: {
-                nextpage: channel.nextpage,
-              },
+        setNextPageLoading(true)
+        axios
+          .get(state.apiUrl + '/nextpage/channel/' + channel.id, {
+            signal: ac.signal,
+            params: {
+              nextpage: channel.nextpage,
+            },
+          })
+          .then((res) => {
+            if (isMounted) {
+              setChannel((prevState) => ({
+                ...prevState,
+                nextpage: res.data.nextpage,
+                relatedStreams: [
+                  // @ts-ignore
+                  ...prevState.relatedStreams,
+                  ...res.data.relatedStreams,
+                ],
+              }))
             }
-          )
-          if (!ignore)
-            setChannel((prevState) => ({
-              ...prevState,
-              nextpage: request.data.nextpage,
-              relatedStreams: [
-                // @ts-ignore
-                ...prevState.relatedStreams,
-                ...request.data.relatedStreams,
-              ],
-            }))
-          setNextPageLoading(false)
-        } catch (error) {
-          setNextPageLoading(false)
-          console.error(error)
-        }
+            setNextPageLoading(false)
+          })
+          .catch((error) => {
+            setNextPageLoading(false)
+            console.log(error)
+          })
       }
     }
 
@@ -234,17 +242,10 @@ const ChannelPage = (props: ChannelPageProps) => {
     }
 
     return () => {
-      ignore = true
+      ac.abort()
+      isMounted = false
     }
-  }, [
-    channel.id,
-    channel.nextpage,
-    channel.relatedStreams,
-    channelLoading,
-    nextPageLoading,
-    scrollPosition,
-    setChannel,
-  ])
+  }, [scrollPosition, channel])
 
   return (
     <>
