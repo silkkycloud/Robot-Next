@@ -19,7 +19,7 @@ import Trending from '@/components/Trending/Trending'
 import Settings from '@/components/Settings/Settings'
 import Feed from '@/components/Feed/Feed'
 import Subscriptions from '@/components/Subscriptions/Subscriptions'
-import Channel from '@/components/Channel/Channel'
+import ChannelPage from '@/components/Channel/Channel'
 import Search from '@/components/Search/Search'
 
 export const NotFound = () => (
@@ -96,14 +96,17 @@ const Index = () => {
             <Route path="/feed" element={<Feed />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/c/:id/*" element={<Channel channelPrefix="/c/" />} />
+            <Route
+              path="/c/:id/*"
+              element={<ChannelPage channelPrefix="/c/" />}
+            />
             <Route
               path="/channel/:id/*"
-              element={<Channel channelPrefix="/channel/" />}
+              element={<ChannelPage channelPrefix="/channel/" />}
             />
             <Route
               path="/user/:id/*"
-              element={<Channel channelPrefix="/user/" />}
+              element={<ChannelPage channelPrefix="/user/" />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

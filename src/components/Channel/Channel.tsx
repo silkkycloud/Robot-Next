@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useFetchChannel, useFetchChannelNextPage } from '@/hooks/api'
 import useScrollPosition from '@/hooks/useScrollPosition'
 
 import { NextSeo } from 'next-seo'
@@ -8,15 +7,63 @@ import Image from 'next/image'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import MinimalVideo from '@/components/Video/MinimalVideo'
 import { LoadingVideoGrid } from '@/components/Video/Video'
-import Spinner from '@/components/ui/Loading/Spinner'
 import { HiCheckCircle } from 'react-icons/hi'
 
 import { numberFormat } from '@/functions/format'
 import { purifyHTML } from '@/functions/purify'
 import urlify from '@/functions/urlify'
 
-export interface ChannelProps {
-  channelPrefix: string
+import { Channel } from '@/types/api'
+
+import axios from 'axios'
+import state from '../../state'
+
+export const useFetchChannel = (
+  channelPrefix: string,
+  channelId: string | undefined
+): [Channel, Dispatch<SetStateAction<Channel>>, boolean] => {
+  const [data, setData] = useState<Channel>({
+    id: '',
+    name: '',
+    avatarUrl: '',
+    bannerUrl: '',
+    description: '',
+    nextpage: '',
+    subscriberCount: 0,
+    verified: false,
+  })
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let ignore = false
+
+    const fetchChannel = async () => {
+      const channelPathPrefixes = ['/channel/', '/user/', '/c/']
+      if (
+        channelId != undefined &&
+        channelPathPrefixes.includes(channelPrefix)
+      ) {
+        try {
+          setLoading(true)
+          const request = await axios.get(
+            state.apiUrl + channelPrefix + channelId
+          )
+          if (!ignore) setData(request.data)
+          setLoading(false)
+        } catch (error) {
+          setLoading(false)
+          console.error(error)
+        }
+      }
+    }
+
+    fetchChannel()
+    return () => {
+      let ignore = true
+    }
+  }, [channelPrefix, channelId])
+
+  return [data, setData, loading]
 }
 
 export const LoadingChannel = () => (
@@ -51,136 +98,175 @@ export const LoadingChannel = () => (
   </div>
 )
 
-const Channel = (props: ChannelProps): JSX.Element => {
-  const { id } = useParams()
+const Channel = (props: Channel) => (
+  <div className="md:pb-6 md:py-0">
+    {props.bannerUrl && (
+      // TODO: Fix next/image component to work with these styles
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        className="w-full bg-gray-300 dark:bg-neutral-800"
+        src={props.bannerUrl}
+        loading="lazy"
+        alt={props.name}
+      />
+    )}
+    <div className="bg-gray-100 dark:bg-neutral-800">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="pt-4 pb-4 md:pb-3 flex flex-row items-center relative">
+          <div className="hidden md:block md:mr-5 md:rounded-full">
+            {props.avatarUrl && (
+              <Image
+                className="rounded-full bg-gray-200 dark:bg-neutral-800"
+                src={props.avatarUrl}
+                loading="lazy"
+                alt={props.name}
+                width={80}
+                height={80}
+                layout="fixed"
+              />
+            )}
+          </div>
+          <div>
+            <div className="flex flex-row items-center">
+              <h1 className="text-2xl font-medium">{props.name}</h1>
+              {props.verified && (
+                <HiCheckCircle className="text-gray-600 dark:text-neutral-400 ml-1 h-4 w-4" />
+              )}
+            </div>
+            <div>
+              <p className="text-sm text-gray-600 dark:text-neutral-400">
+                {numberFormat(props.subscriberCount)} subscribers
+              </p>
+            </div>
+          </div>
+        </div>
+        {props.description && (
+          <div className="pb-4 md:pb-3">
+            <p className="whitespace-pre-wrap">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: purifyHTML(urlify(props.description)),
+                }}
+              />
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+    {/* Video grid */}
+    {props.relatedStreams && (
+      <div className="py-6">
+        <VideoGrid className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {props.relatedStreams.map((video, i: number) => (
+            <li key={i.toString()}>
+              <MinimalVideo
+                url={video.url}
+                title={video.title}
+                thumbnail={video.thumbnail}
+                uploaderName={video.uploaderName}
+                uploaderUrl={video.uploaderUrl}
+                uploadedDate={video.uploadedDate}
+                duration={video.duration}
+                views={video.views}
+              />
+            </li>
+          ))}
+        </VideoGrid>
+      </div>
+    )}
+  </div>
+)
 
-  const [channel, channelLoading] = useFetchChannel(props.channelPrefix, id)
-  const [channelState, setChannelState] = useState(channel)
-  const [channelNextPage, channelNextPageLoading] = useFetchChannelNextPage(
-    channelState.id,
-    channelState.nextpage
+export interface ChannelPageProps {
+  channelPrefix: string
+}
+
+const ChannelPage = (props: ChannelPageProps) => {
+  const { id } = useParams()
+  const [channel, setChannel, channelLoading] = useFetchChannel(
+    props.channelPrefix,
+    id
   )
+
+  const [nextPageLoading, setNextPageLoading] = useState(false)
   const scrollPosition = useScrollPosition()
 
   useEffect(() => {
-    if (
-      !channelLoading &&
-      !channelNextPageLoading &&
-      channelState.nextpage &&
-      channelState.relatedStreams
-    ) {
+    let ignore = false
+
+    const fetchNextPage = async () => {
+      if (channel.id && channel.nextpage && channel.relatedStreams) {
+        try {
+          setNextPageLoading(true)
+          const request = await axios.get(
+            state.apiUrl + '/nextpage/channel/' + channel.id,
+            {
+              params: {
+                nextpage: channel.nextpage,
+              },
+            }
+          )
+          if (!ignore)
+            setChannel((prevState) => ({
+              ...prevState,
+              nextpage: request.data.nextpage,
+              relatedStreams: [
+                // @ts-ignore
+                ...prevState.relatedStreams,
+                ...request.data.relatedStreams,
+              ],
+            }))
+          setNextPageLoading(false)
+        } catch (error) {
+          setNextPageLoading(false)
+          console.error(error)
+        }
+      }
+    }
+
+    if (!channelLoading && !nextPageLoading) {
       if (
         window.innerHeight + scrollPosition >=
         document.body.offsetHeight - window.innerHeight
       ) {
-        channel.nextpage = channelNextPage.nextpage
-        channelNextPage.relatedStreams?.map((videos) =>
-          channel.relatedStreams?.push(videos)
-        )
+        fetchNextPage()
       }
     }
-  }, [scrollPosition, channelNextPage])
 
-  useEffect(() => {
-    setChannelState(channel)
-  }, [channel])
+    return () => {
+      ignore = true
+    }
+  }, [
+    channel.id,
+    channel.nextpage,
+    channel.relatedStreams,
+    channelLoading,
+    nextPageLoading,
+    scrollPosition,
+    setChannel,
+  ])
 
   return (
     <>
       {channelLoading ? (
         <LoadingChannel />
       ) : (
-        <>
-          <div className="block md:pb-6 md:py-0">
-            <NextSeo title={`${channelState.name} - Piped`} />
-            <div>
-              {/* Banner */}
-              <div>
-                {channelState.bannerUrl && channelState.name && (
-                  // TODO: Can't get next/image component to work with these styles
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className="w-full bg-gray-300 dark:bg-neutral-800"
-                    src={channelState.bannerUrl}
-                    loading="lazy"
-                    alt={channelState.name}
-                  />
-                )}
-              </div>
-              <div className="bg-gray-100 dark:bg-neutral-800">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="pt-4 pb-4 md:pb-3 flex flex-row items-center relative">
-                    <div className="hidden md:block md:mr-5 md:rounded-full">
-                      {channelState.avatarUrl && channelState.name && (
-                        <Image
-                          className="rounded-full bg-gray-200 dark:bg-neutral-800"
-                          src={channelState.avatarUrl}
-                          loading="lazy"
-                          alt={channelState.name}
-                          width={80}
-                          height={80}
-                          layout="fixed"
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <div className="flex flex-row items-center">
-                        <h1 className="text-2xl font-medium">{channel.name}</h1>
-                        {channelState.verified && (
-                          <HiCheckCircle className="text-gray-600 dark:text-neutral-400 ml-1 h-4 w-4" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600 dark:text-neutral-400">
-                          {numberFormat(channelState.subscriberCount)}{' '}
-                          subscribers
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pb-4 md:pb-3">
-                    <p className="whitespace-pre-wrap">
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: purifyHTML(urlify(channelState.description)),
-                        }}
-                      />
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="py-6">
-                {/* Video grid */}
-                {channelState.relatedStreams && (
-                  <VideoGrid className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    {channelState.relatedStreams.map((video, i: number) => (
-                      <li key={i.toString()}>
-                        <MinimalVideo
-                          url={video.url}
-                          title={video.title}
-                          thumbnail={video.thumbnail}
-                          uploaderName={video.uploaderName}
-                          uploaderUrl={video.uploaderUrl}
-                          uploadedDate={video.uploadedDate}
-                          duration={video.duration}
-                          views={video.views}
-                        />
-                      </li>
-                    ))}
-                  </VideoGrid>
-                )}
-                {channelNextPageLoading && (
-                  <div className="py-6 flex justify-center">
-                    <Spinner className="h-10 w-10" />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </>
+        <div>
+          <NextSeo title={`${channel.name} - Piped`} />
+          <Channel
+            id={channel.id}
+            name={channel.name}
+            avatarUrl={channel.avatarUrl}
+            bannerUrl={channel.bannerUrl}
+            description={channel.description}
+            subscriberCount={channel.subscriberCount}
+            verified={channel.verified}
+            relatedStreams={channel.relatedStreams}
+          />
+        </div>
       )}
     </>
   )
 }
 
-export default Channel
+export default ChannelPage

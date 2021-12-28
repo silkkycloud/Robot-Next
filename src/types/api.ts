@@ -45,10 +45,10 @@ export type Trending = {
 export type Channel = {
   id: string
   name: string
-  avatarUrl: string
-  bannerUrl: string
-  description: string
-  nextpage: string
+  avatarUrl?: string
+  bannerUrl?: string
+  description?: string
+  nextpage?: string
   subscriberCount: number
   verified: boolean
   relatedStreams?: {
