@@ -104,26 +104,8 @@ export const LoadingChannel = () => (
   </div>
 )
 
-export interface ChannelProps {
-  name: string
-  avatarUrl?: string
-  bannerUrl?: string
-  description?: string
-  subscriberCount: number
-  verified: boolean
+export interface ChannelProps extends Channel {
   nextPageLoading?: boolean
-  relatedStreams?: {
-    url: string
-    title: string
-    thumbnail: string
-    uploaderName: string
-    uploaderUrl: string
-    uploaderAvatar: null
-    uploadedDate: string
-    duration: number
-    views: number
-    uploaderVerified: boolean
-  }[]
 }
 
 const Channel = (props: ChannelProps) => (
@@ -287,6 +269,7 @@ const ChannelPage = (props: ChannelPageProps) => {
         <div>
           <NextSeo title={`${channel.name} - Piped`} />
           <Channel
+            id={channel.id}
             name={channel.name}
             avatarUrl={channel.avatarUrl}
             bannerUrl={channel.bannerUrl}
