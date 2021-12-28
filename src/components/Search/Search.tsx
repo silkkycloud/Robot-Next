@@ -40,7 +40,7 @@ export const useFetchSearch = (
         'music_playlists',
       ]
       if (query != null && searchFilters.includes(filter)) {
-        setLoading(true)
+        if (isMounted) setLoading(true)
         axios
           .get(state.apiUrl + '/search', {
             signal: ac.signal,
@@ -50,11 +50,13 @@ export const useFetchSearch = (
             },
           })
           .then((res) => {
-            if (isMounted) setData(res.data)
-            setLoading(false)
+            if (isMounted) {
+              setData(res.data)
+              setLoading(false)
+            }
           })
           .catch((error) => {
-            setLoading(false)
+            if (isMounted) setLoading(false)
             console.log(error)
           })
       }

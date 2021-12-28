@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { VideoGrid } from '@/components/ui/Grid/Grid'
 import MinimalVideo from '@/components/Video/MinimalVideo'
 import { LoadingVideoGrid } from '@/components/Video/Video'
+import Spinner from '@/components/ui/Loading/Spinner'
 import { HiCheckCircle } from 'react-icons/hi'
 
 import { numberFormat } from '@/functions/format'
@@ -17,6 +18,8 @@ import { Channel } from '@/types/api'
 
 import axios from 'axios'
 import state from '../../state'
+import { is } from '@babel/types'
+import { ifError } from 'assert'
 
 export const useFetchChannel = (
   channelPrefix: string,
@@ -103,7 +106,29 @@ export const LoadingChannel = () => (
   </div>
 )
 
-const Channel = (props: Channel) => (
+export interface ChannelProps {
+  name: string
+  avatarUrl?: string
+  bannerUrl?: string
+  description?: string
+  subscriberCount: number
+  verified: boolean
+  nextPageLoading?: boolean
+  relatedStreams?: {
+    url: string
+    title: string
+    thumbnail: string
+    uploaderName: string
+    uploaderUrl: string
+    uploaderAvatar: null
+    uploadedDate: string
+    duration: number
+    views: number
+    uploaderVerified: boolean
+  }[]
+}
+
+const Channel = (props: ChannelProps) => (
   <div className="md:pb-6 md:py-0">
     {props.bannerUrl && (
       // TODO: Fix next/image component to work with these styles
@@ -177,6 +202,11 @@ const Channel = (props: Channel) => (
             </li>
           ))}
         </VideoGrid>
+        {props.nextPageLoading && (
+          <div className="py-6 flex justify-center">
+            <Spinner className="h-10 w-10" />
+          </div>
+        )}
       </div>
     )}
   </div>
@@ -206,7 +236,7 @@ const ChannelPage = (props: ChannelPageProps) => {
 
     const fetchNextPage = () => {
       if (channel.relatedStreams && channel.nextpage && channel.id) {
-        setNextPageLoading(true)
+        if (isMounted) setNextPageLoading(true)
         axios
           .get(state.apiUrl + '/nextpage/channel/' + channel.id, {
             signal: ac.signal,
@@ -225,11 +255,11 @@ const ChannelPage = (props: ChannelPageProps) => {
                   ...res.data.relatedStreams,
                 ],
               }))
+              setNextPageLoading(false)
             }
-            setNextPageLoading(false)
           })
           .catch((error) => {
-            setNextPageLoading(false)
+            if (isMounted) setNextPageLoading(false)
             console.log(error)
           })
       }
@@ -259,13 +289,13 @@ const ChannelPage = (props: ChannelPageProps) => {
         <div>
           <NextSeo title={`${channel.name} - Piped`} />
           <Channel
-            id={channel.id}
             name={channel.name}
             avatarUrl={channel.avatarUrl}
             bannerUrl={channel.bannerUrl}
             description={channel.description}
             subscriberCount={channel.subscriberCount}
             verified={channel.verified}
+            nextPageLoading={nextPageLoading}
             relatedStreams={channel.relatedStreams}
           />
         </div>

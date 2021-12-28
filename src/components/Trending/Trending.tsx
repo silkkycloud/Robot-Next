@@ -20,7 +20,7 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
     const ac = new AbortController()
 
     const fetchTrending = () => {
-      setLoading(true)
+      if (isMounted) setLoading(true)
       axios
         .get(state.apiUrl + '/trending', {
           signal: ac.signal,
@@ -29,11 +29,13 @@ export const useFetchTrending = (region: string): [Trending, boolean] => {
           },
         })
         .then((res) => {
-          if (isMounted) setData(res.data)
-          setLoading(false)
+          if (isMounted) {
+            setData(res.data)
+            setLoading(false)
+          }
         })
         .catch((error) => {
-          setLoading(false)
+          if (isMounted) setLoading(false)
           console.log(error)
         })
     }
